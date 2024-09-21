@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+:root {
+  --bank-red: #9B1E26;
+  --sand: #FFDFA4;
+  --orange: #CE623E;
+  --fade-orange: #DE8B70;
+  --blood-red: #D3464E;
+  --pink: #FFE3E6;
+}
+
+html {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+body {
+  position: relative;
+}
+
+.fakeDiv {
+  height: 100vh;
+  background: pink;
+  width: 100vw;
+  border: 1px solid black;
+}

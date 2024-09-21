@@ -1,0 +1,25 @@
+nav {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 72px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+
+  img {
+    height: 42px;
+    width: 120px;
+  }
+
+  a {
+    color: var(--bank-red);
+    font-size: 14px;
+    border: 2px solid var(--bank-red);
+    border-radius: 1000px;
+    padding: 11px 20px;
+    font-weight: 600;
+  }
+}
