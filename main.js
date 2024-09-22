@@ -30,40 +30,58 @@ const ShineTl = gsap.timeline({ repeat: -1 })
   });
 ShineTl;
 
-const wheel = document.querySelector(".wheel");
-const card = gsap.utils.toArray(".card-wrapper");
-function setup() {
-  let radius = wheel.offsetWidth * 1.18;
-  let centerx = wheel.offsetWidth / 2;
-  let centery = wheel.offsetWidth / 0.75;
-  let total = card.length;
-  let slice = (2 * Math.PI) / total;
 
-  card.forEach((item, i) => {
-    let angle = i * slice;
+window.onload = function () {
+  const container = document.querySelector('.wheel');
+  const card7 = document.querySelector('.card01');
 
-    let x = centerx + radius * Math.sin(angle);
-    let y = centery - radius * Math.cos(angle);
+  const containerWidth = container.offsetWidth;
+  const cardPosition = card7.offsetLeft;
 
-    gsap.set(item, {
-      rotation: angle + "_rad",
-      xPercent: -50,
-      yPercent: -50,
-      x: x,
-      y: y
-    });
-  });
+  // Scroll the container to where card 7 is positioned
+  container.scrollLeft = cardPosition - containerWidth / 2 + card7.offsetWidth / 2;
+
+  // Translate card 7 to center it visually
+  const offsetToCenter = (containerWidth / 2) - (card7.offsetWidth / 2) - card7.offsetLeft;
+
+  container.style.transform = `translateX(${offsetToCenter}px)`;
+
+  gsap.set(CARDS[2], {
+    y: '240px',
+    rotate: '-15deg'
+  })
+  gsap.set(CARDS[3], {
+    y: '110px',
+    rotate: '-16deg'
+  })
+  gsap.set(CARDS[4], {
+    y: '30px',
+    rotate: '-8deg'
+  })
+  gsap.set(CARDS[5], {
+    y: '-20px',
+    rotate: '0deg'
+  })
+  gsap.set(CARDS[6], {
+    y: '30px',
+    rotate: '8deg',
+  })
+  gsap.set(CARDS[7], {
+    y: '110px',
+    rotate: '16deg'
+  })
+  gsap.set(CARDS[8], {
+    y: '240px',
+    rotate: '24deg'
+  })
 };
-
-window.addEventListener("resize", setup);
-setup()
 
 
 
 var root = document.documentElement;
 var body = document.body;
 var pages = document.querySelectorAll(".tile");
-var tiles = document.querySelectorAll(".card");
+const tiles = [...document.querySelectorAll('.firstCard'), ...document.querySelectorAll('.card')];
 
 for (var i = 0; i < pages.length; i++) {
   addListeners(tiles[i], pages[i]);
@@ -99,7 +117,6 @@ function animateHero(fromHero, toHero) {
     width: to.width,
     height: to.height,
     autoRound: false,
-    //ease: 'power1.easeOut',
     onComplete: onComplete
   };
 
@@ -130,9 +147,15 @@ function calculatePosition(element) {
   };
 }
 
+const card = document.querySelectorAll('.card');
+const fakeCard1 = document.querySelectorAll('.cardFake');
+const fakeCard2 = document.querySelectorAll('.cardFake2');
+const cardWidth = card[0].offsetWidth;
+const margin = 20
 
+const CARDS = [...document.querySelectorAll('.cardFake'), ...document.querySelectorAll('.firstCard'), ...document.querySelectorAll('.card'), ...document.querySelectorAll('.cardfake2')];
 
-const angle = -360 / 37
+console.log(CARDS)
 
 const rotate = gsap.timeline({
   scrollTrigger: {
@@ -147,18 +170,105 @@ const rotate = gsap.timeline({
   }
 });
 
+
 rotate
-  .to(".card", {
+  .to(".card, .cardFake, .cardFake2", {
     opacity: 0.5,
     duration: 2,
   })
   .to(".card01", {
     opacity: 1,
     duration: 2,
+    onComplete: () => {
+      //animateHero(tiles[0], pages[0])
+    }
   }, "<")
 
-  .to(".wheel", {
-    rotate: () => angle,
-    ease: "none",
-    duration: card.length,
-  }, '+=0.5')
+
+  //first slide 
+  .to(".wheelCon", {
+    x: -cardWidth - margin,
+  })
+  .to(CARDS[6 - 1], {
+    opacity: 0.5
+  }, '<')
+  .to(CARDS[6], {
+    opacity: 1
+  }, '<')
+  .to(CARDS[6 - 3], {
+    y: '240px',
+    rotate: '-15deg'
+  }, '<')
+  .to(CARDS[6 - 2], {
+    y: '110px',
+    rotate: '-16deg'
+  }, '<')
+  .to(CARDS[6 - 1], {
+    y: '30px',
+    rotate: '-8deg'
+  }, '<')
+  .to(CARDS[6 + 0], {
+    y: '-20px',
+    rotate: '0deg'
+  }, '<')
+  .to(CARDS[6 + 1], {
+    y: '30px',
+    rotate: '8deg',
+  }, '<')
+  .to(CARDS[6 + 2], {
+    y: '110px',
+    rotate: '16deg'
+  }, '<')
+  .to(CARDS[6 + 3], {
+    y: '240px',
+    rotate: '24deg'
+  }, '<')
+
+
+
+
+window.onload = function () {
+  const container = document.querySelector('.wheel');
+  const card7 = document.querySelector('.card01');
+
+  const containerWidth = container.offsetWidth;
+  const cardPosition = card7.offsetLeft;
+
+  // Scroll the container to where card 7 is positioned
+  container.scrollLeft = cardPosition - containerWidth / 2 + card7.offsetWidth / 2;
+
+  // Translate card 7 to center it visually
+  const offsetToCenter = (containerWidth / 2) - (card7.offsetWidth / 2) - card7.offsetLeft;
+
+  container.style.transform = `translateX(${offsetToCenter}px)`;
+  gsap.set(CARDS[2], {
+    y: '240px',
+    rotate: '-15deg'
+  })
+  gsap.set(CARDS[3], {
+    y: '110px',
+    rotate: '-16deg'
+  })
+  gsap.set(CARDS[4], {
+    y: '30px',
+    rotate: '-8deg'
+  })
+  gsap.set(CARDS[5], {
+    y: '-20px',
+    rotate: '0deg',
+    zIndex: 11
+  })
+  gsap.set(CARDS[6], {
+    y: '30px',
+    rotate: '8deg',
+  })
+  gsap.set(CARDS[7], {
+    y: '110px',
+    rotate: '16deg'
+  })
+  gsap.set(CARDS[8], {
+    y: '240px',
+    rotate: '24deg'
+  })
+};
+

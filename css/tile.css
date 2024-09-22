@@ -5,6 +5,68 @@
   width: 100vw;
   height: 100vh;
   background: linear-gradient(180deg, rgba(251, 242, 219, 1) 0%, rgba(254, 235, 234, 1) 100%);
-  z-index: 50;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   visibility: hidden;
+}
+
+
+.tileCon {
+
+  display: flex;
+  gap: 100px;
+  justify-content: center;
+  align-items: flex-end;
+
+  img {
+    width: 272px;
+    height: auto;
+  }
+}
+
+.tileRight {
+  display: flex;
+  flex-direction: column;
+
+
+  h1 {
+    font-size: 50px;
+    font-weight: bold;
+    color: var(--blood-red);
+    line-height: 50px;
+    margin-bottom: 19px;
+  }
+
+  h3 {
+    font-size: 30px;
+    font-weight: 400;
+    margin-bottom: 50px;
+  }
+
+  h2 {
+    color: var(--fade-orange);
+    font-size: 40px;
+    text-decoration: line-through;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  h4 {
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 5px;
+
+    span {
+      color: var(--bank-red);
+      font-weight: 600;
+    }
+  }
+
+  p {
+    font-size: 10px;
+    color: var(--gray);
+    font-weight: 600;
+  }
 }
