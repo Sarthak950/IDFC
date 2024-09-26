@@ -1,9 +1,10 @@
 .cardCon {
   width: 100vw;
-  margin-top: 5rem;
+  /*margin-top: 5rem;*/
   width: fit-content;
   margin-inline: auto;
-  padding-bottom: 100px;
+  /*padding-bottom: 100px;*/
+  overflow: hidden;
 }
 
 .wheelCon {
@@ -14,13 +15,18 @@
 .wheel {
   display: flex;
   gap: 20px;
+  padding-top: 5rem;
 }
 
 
 
 .tempDivWrapper {
-  position: relative;
+  /*position: relative;*/
   z-index: 0;
+}
+
+.cardFake2 {
+  opacity: 0.5 !important;
 }
 
 .card,
@@ -184,8 +190,13 @@
   border-radius: 1000px;
   padding: 6px 34px 6px 6px;
   margin: 60px auto 20px auto;
-  position: relative;
-  z-index: 1000;
+  position: fixed;
+
+  z-index: 100;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0 ;
 }
 
 .savingImgCon {

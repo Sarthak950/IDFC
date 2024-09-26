@@ -5,6 +5,7 @@
   width: 100vw;
   height: 100vh;
   background: linear-gradient(180deg, rgba(251, 242, 219, 1) 0%, rgba(254, 235, 234, 1) 100%);
+  border-radius: 60px;
   z-index: 10;
   display: flex;
   justify-content: center;
@@ -12,9 +13,7 @@
   visibility: hidden;
 }
 
-
 .tileCon {
-
   display: flex;
   gap: 100px;
   justify-content: center;
@@ -69,4 +68,8 @@
     color: var(--gray);
     font-weight: 600;
   }
+}
+
+.pin-spacer {
+  margin-bottom: 100px !important;
 }

@@ -1,0 +1,5 @@
+02) window scrollbar hide
+03) smoothness
+04) when big box open and not loaded completly till the time scroll should not allow
+05) on the reverse scrool valu should deduct from the valu counter
+07) on scroll of slide 36 this animation should hide and show other div so we can put our components
