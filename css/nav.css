@@ -4,23 +4,25 @@ nav {
   display: flex;
   width: 100%;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 16px 72px;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
 
-  img {
-    height: 42px;
-    width: 120px;
+  a:nth-child(1) {
+    img {
+      height: 42px;
+      width: 120px;
+    }
   }
 
-  a {
+  a:nth-child(2) {
     color: var(--bank-red);
     font-size: 14px;
     border: 2px solid var(--bank-red);
@@ -34,15 +36,16 @@ nav {
   nav {
     padding: 13px 10px;
 
-    img {
-      width: 90px;
-      height: auto;
+    a:nth-child(1) {
+      img {
+        width: 90px;
+        height: auto;
+      }
     }
 
-    a {
+  a:nth-child(2) {
       display: none;
     }
   }
 
 }
-

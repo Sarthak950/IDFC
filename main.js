@@ -1938,12 +1938,16 @@ const _43thScrollFun = () => gsap.timeline({ paused: true })
 
 
 window.onload = function () {
-  if (window.innerWidth < 768) {
-    const tile = document.querySelector('.tile');
-    const tileOffsetTop = tile.offsetTop;
 
-    tile.style.top = `-${tileOffsetTop}px`;
-    console.log("tilePosition", tileOffsetTop)
+  // scroll to element with id fakeDiv
+
+
+  if (window.innerWidth < 768) {
+    //const tile = document.querySelector('.tile');
+    //const tileOffsetTop = tile.offsetTop;
+    //
+    //tile.style.top = `-${tileOffsetTop}px`;
+    //console.log("tilePosition", tileOffsetTop)
   }
   const container = document.querySelector('.wheel');
   const card7 = document.querySelector('.card01');
@@ -1992,7 +1996,9 @@ window.onload = function () {
     scrollTo: {
       y: 0
     },
+    duration: 0.1,
     onComplete: () => {
+      setTimeout(function () { window.scrollTo(0, 0); }, 1)
       gsap.fromTo(".savingCon", {
         opacity: 0,
       }, {
@@ -2033,7 +2039,7 @@ const firstScrollFun = () => {
             duration: 0.7
           }, "<")
           .to(".savingCon", {
-            y: "10px",
+            y: "50px",
             onComplete: () => {
               console.log("fitst completed")
             }
