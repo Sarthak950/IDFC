@@ -4,20 +4,34 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(251, 242, 219, 1)), to(rgba(254, 235, 234, 1)));
+  background: -o-linear-gradient(top, rgba(251, 242, 219, 1) 0%, rgba(254, 235, 234, 1) 100%);
   background: linear-gradient(180deg, rgba(251, 242, 219, 1) 0%, rgba(254, 235, 234, 1) 100%);
   border-radius: 60px;
   z-index: 10;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   visibility: hidden;
 }
 
 .tileCon {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   gap: 100px;
-  justify-content: center;
-  align-items: flex-end;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 
   img {
     width: 272px;
@@ -26,8 +40,13 @@
 }
 
 .tileRight {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 
 
   h1 {
@@ -82,13 +101,24 @@
   }
 
   .tileCon {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     gap: 30px;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     text-align: center!important;
-    transform: translateY(-70px);
+    -webkit-transform: translateY(-70px);
+        -ms-transform: translateY(-70px);
+            transform: translateY(-70px);
 
     img {
       width: 200px;
@@ -97,8 +127,13 @@
   }
 
   .tileRight {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
 
     h1 {
       font-size: 45px;
