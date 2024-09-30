@@ -73,3 +73,67 @@
 .pin-spacer {
   margin-bottom: 100px !important;
 }
+
+
+@media (max-width: 768px) {
+  .tile {
+    /*top: -140px;*/
+    /*transform: translateY(-150px);*/
+  }
+
+  .tileCon {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    text-align: center!important;
+    transform: translateY(-70px);
+
+    img {
+      width: 200px;
+      height: auto;
+    }
+  }
+
+  .tileRight {
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+      font-size: 45px;
+      line-height: 45px;
+      margin-bottom: 15px;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 50px;
+    }
+
+    h2 {
+      font-size: 35px;
+    }
+
+    h4 {
+      font-size: 28px;
+      font-weight: 500;
+      margin-bottom: 5px;
+
+      span {
+        color: var(--bank-red);
+        font-weight: 600;
+      }
+    }
+
+    p {
+      font-size: 12px;
+      color: var(--gray);
+      font-weight: 600;
+      max-width: 350px;
+      margin-inline: auto;
+    }
+  }
+
+}

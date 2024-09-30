@@ -5,8 +5,9 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { Flip } from "gsap/all";
 
 
-const debug = true
-
+const debug = false
+let canScroll = false;
+let scrollPosition = 0
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, MotionPathPlugin, Flip);
 
@@ -36,7 +37,6 @@ ShineTl;
 
 
 let scrollDisabled = false;
-let canEnableScroll = false;
 let FromHero = null;
 let ToHero = null;
 
@@ -57,18 +57,6 @@ function enableScroll() {
     window.removeEventListener('wheel', captureScroll);
     window.removeEventListener('touchmove', captureScroll);
     window.removeEventListener('keydown', captureKeyScroll);
-  }
-}
-
-// This will prevent the scroll but allow the scroll event to be captured
-function captureScroll(event) {
-  event.preventDefault(); // Prevent actual scroll
-  // You can do other things like log the scroll position, handle custom logic, etc.
-  console.log("shit")
-  if (canEnableScroll) {
-    canEnableScroll = false
-    console.log("SHISHISHISHISHITTTTTSHIT")
-    hideDetails(ToHero, FromHero)
   }
 }
 
@@ -155,10 +143,10 @@ function showDetails(fromHero, toHero, increment = 0) {
     }, "+=0.1")
     .to(".tileRight p", {
       opacity: 1,
-      onComplete: () => {
-        canEnableScroll = true;
-      }
     }, "+=0.1")
+    .add(() => {
+      canScroll = true
+    })
 
 }
 
@@ -188,7 +176,7 @@ function hideDetails(fromHero, toHero) {
     },
     onComplete: () => {
       setTimeout(() => {
-        enableScroll();
+        //enableScroll();
       }, 1000)
     }
     //onInterrupt: () => tl.kill()
@@ -233,47 +221,35 @@ const margin = 20
 
 const CARDS = [...document.querySelectorAll('.cardFake'), ...document.querySelectorAll('.firstCard'), ...document.querySelectorAll('.card'), ...document.querySelectorAll('.cardFake2')];
 
-const rotate = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".wheelCon",
-    start: "-120px top",
-    end: "3800% top",
-    pin: true,
-    markers: true,
-    scrub: true,
-    //snap: 1 / card.length,
-    invalidateOnRefresh: true,
-  }
-});
-
-
-rotate
-  .to('.savingCon', {
-    opacity: 0,
-    duration: 0
-  }, 0)
-  .to(".card, .cardFake, .cardFake2", {
-    opacity: 0.5,
-    duration: 2,
-    onStart: () => {
-      gsap.to(".savingCon", {
-        opacity: 1,
-        duration: 0.5
-      })
+if (document.documentElement.clientWidth > 768) {
+  const rotate = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".wheelCon",
+      start: "-120px top",
+      end: "40% top",
+      pin: true,
+      scrub: true,
+      markers: false,
+      //snap: 1 / card.length,
+      invalidateOnRefresh: true,
     }
-  })
-  .to(".card01", {
-    opacity: 1,
-    duration: 2,
-  }, "<")
+  });
+}
+const secondScrollFun = () => gsap.timeline({ paused: true })
   .add(() => {
+    scrollPosition = 2
     if (!debug) {
-      disableScroll()
       showDetails(tiles[0], pages[0], 252)
     }
   })
 
-  //first slide 
+const thirdScrollFun = () => gsap.timeline({ paused: true })
+  .add(() => {
+    scrollPosition = 3
+    if (!debug) {
+      hideDetails(ToHero, FromHero)
+    }
+  })
   .to(".wheelCon", {
     x: -cardWidth - margin,
   }, "+=1")
@@ -309,16 +285,28 @@ rotate
   }, '<')
   .to(CARDS[6 + 3], {
     y: '240px',
-    rotate: '24deg'
+    rotate: '24deg',
+    onComplete: () => {
+      canScroll = true
+    }
   }, '<')
+
+
+const fourthScrollFun = () => gsap.timeline({ paused: true })
   .add(() => {
+    scrollPosition = 4
     if (!debug) {
-      disableScroll()
       showDetails(tiles[1], pages[1], 402)
     }
   })
 
-  //second slide
+const fifthScrollFun = () => gsap.timeline({ paused: true })
+  .add(() => {
+    scrollPosition = 5
+    if (!debug) {
+      hideDetails(ToHero, FromHero)
+    }
+  })
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 2,
   }, "+=1")
@@ -354,17 +342,28 @@ rotate
   }, '<')
   .to(CARDS[7 + 3], {
     y: '240px',
-    rotate: '24deg'
+    rotate: '24deg',
+    onComplete: () => {
+      canScroll = true
+    }
   }, '<')
+
+
+const sixthScrollFun = () => gsap.timeline({ paused: true })
   .add(() => {
+    scrollPosition = 6
     if (!debug) {
-      disableScroll()
       showDetails(tiles[2], pages[2], 702)
     }
   })
 
-
-  //third slide
+const seventhScrollFun = () => gsap.timeline({ paused: true })
+  .add(() => {
+    scrollPosition = 7
+    if (!debug) {
+      hideDetails(ToHero, FromHero)
+    }
+  })
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 3,
   }, "+=1")
@@ -400,15 +399,27 @@ rotate
   }, '<')
   .to(CARDS[8 + 3], {
     y: '240px',
-    rotate: '24deg'
+    rotate: '24deg',
+    onComplete: () => {
+      canScroll = true
+    }
   }, '<')
+
+const eightScrollFun = () => gsap.timeline({ paused: true })
   .add(() => {
+    scrollPosition = 8
     if (!debug) {
-      disableScroll()
       showDetails(tiles[3], pages[3], 2502)
     }
   })
 
+const ninthScrollFun = () => gsap.timeline({ paused: true })
+  .add(() => {
+    scrollPosition = 9
+    if (!debug) {
+      hideDetails(ToHero, FromHero)
+    }
+  })
   //fourth slide
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 4,
@@ -445,15 +456,26 @@ rotate
   }, '<')
   .to(CARDS[9 + 3], {
     y: '240px',
-    rotate: '24deg'
+    rotate: '24deg',
+    onComplete: () => {
+      canScroll = true
+    }
   }, '<')
+
+const tenthScrollFun = () => gsap.timeline({ paused: true })
   .add(() => {
+    scrollPosition = 10
     if (!debug) {
-      disableScroll()
       showDetails(tiles[4], pages[4], 2622)
     }
   })
-
+const eleventhScrollFun = () => gsap.timeline({ paused: true })
+  .add(() => {
+    scrollPosition = 11
+    if (!debug) {
+      hideDetails(ToHero, FromHero)
+    }
+  })
   // 5 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 5,
@@ -494,14 +516,16 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 2827, 0.1)
       lastNumber = 2827
+      canScroll = true
     }
   }, '<')
 
 
+const _12thScrollFun = () => gsap.timeline({ paused: true })
   // 6 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 6,
-  }, "+=1")
+  })
   .to(CARDS[11 - 1], {
     opacity: 0.5
   }, '<')
@@ -538,14 +562,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 2842, 0.1)
       lastNumber = 2842
+      canScroll = true
     }
   }, '<')
 
-
+const _13thScrollFun = () => gsap.timeline({ paused: true })
   // 7 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 7,
-  }, "+=1")
+  })
   .to(CARDS[12 - 1], {
     opacity: 0.5
   }, '<')
@@ -582,14 +607,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 2882, 0.1)
       lastNumber = 2882
+      canScroll = true
     }
   }, '<')
 
-
+const _14thScrollFun = () => gsap.timeline({ paused: true })
   // 8 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 8,
-  }, "+=1")
+  })
   .to(CARDS[13 - 1], {
     opacity: 0.5
   }, '<')
@@ -626,14 +652,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 3032, 0.1)
       lastNumber = 3032
+      canScroll = true
     }
   }, '<')
 
-
+const _15thScrollFun = () => gsap.timeline({ paused: true })
   // 9 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 9,
-  }, "+=1")
+  })
   .to(CARDS[14 - 1], {
     opacity: 0.5
   }, '<')
@@ -670,14 +697,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 3382, 0.1)
       lastNumber = 3382
+      canScroll = true
     }
   }, '<')
 
-
+const _16thScrollFun = () => gsap.timeline({ paused: true })
   // 10 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 10,
-  }, "+=1")
+  })
   .to(CARDS[15 - 1], {
     opacity: 0.5
   }, '<')
@@ -714,14 +742,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 3507, 0.1)
       lastNumber = 3507
+      canScroll = true
     }
   }, '<')
 
-
+const _17thScrollFun = () => gsap.timeline({ paused: true })
   // 11 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 11,
-  }, "+=1")
+  })
   .to(CARDS[16 - 1], {
     opacity: 0.5
   }, '<')
@@ -758,14 +787,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 3957, 0.1)
       lastNumber = 3957
+      canScroll = true
     }
   }, '<')
 
-
+const _18thScrollFun = () => gsap.timeline({ paused: true })
   // 12 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 12,
-  }, "+=1")
+  })
   .to(CARDS[17 - 1], {
     opacity: 0.5
   }, '<')
@@ -802,14 +832,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 3982, 0.1)
       lastNumber = 3982
+      canScroll = true
     }
   }, '<')
 
-
+const _19thScrollFun = () => gsap.timeline({ paused: true })
   // 13 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 13,
-  }, "+=1")
+  })
   .to(CARDS[18 - 1], {
     opacity: 0.5
   }, '<')
@@ -846,14 +877,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 4132, 0.1)
       lastNumber = 4132
+      canScroll = true
     }
   }, '<')
 
-
+const _20thScrollFun = () => gsap.timeline({ paused: true })
   // 14 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 14,
-  }, "+=1")
+  })
   .to(CARDS[19 - 1], {
     opacity: 0.5
   }, '<')
@@ -890,14 +922,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 4182, 0.1)
       lastNumber = 4182
+      canScroll = true
     }
   }, '<')
 
-
+const _21thScrollFun = () => gsap.timeline({ paused: true })
   // 15 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 15,
-  }, "+=1")
+  })
   .to(CARDS[20 - 1], {
     opacity: 0.5
   }, '<')
@@ -934,14 +967,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 4192, 0.1)
       lastNumber = 4192
+      canScroll = true
     }
   }, '<')
 
-
+const _22thScrollFun = () => gsap.timeline({ paused: true })
   // 16 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 16,
-  }, "+=1")
+  })
   .to(CARDS[21 - 1], {
     opacity: 0.5
   }, '<')
@@ -978,14 +1012,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 4392, 0.1)
       lastNumber = 4392
+      canScroll = true
     }
   }, '<')
 
-
+const _23thScrollFun = () => gsap.timeline({ paused: true })
   // 17 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 17,
-  }, "+=1")
+  })
   .to(CARDS[22 - 1], {
     opacity: 0.5
   }, '<')
@@ -1022,14 +1057,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 4542, 0.1)
       lastNumber = 4542
+      canScroll = true
     }
   }, '<')
 
-
+const _24thScrollFun = () => gsap.timeline({ paused: true })
   // 18 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 18,
-  }, "+=1")
+  })
   .to(CARDS[23 - 1], {
     opacity: 0.5
   }, '<')
@@ -1066,14 +1102,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 4542, 0.1)
       lastNumber = 4542
+      canScroll = true
     }
   }, '<')
 
-
+const _25thScrollFun = () => gsap.timeline({ paused: true })
   // 19 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 19,
-  }, "+=1")
+  })
   .to(CARDS[24 - 1], {
     opacity: 0.5
   }, '<')
@@ -1110,14 +1147,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 4592, 0.1)
       lastNumber = 4592
+      canScroll = true
     }
   }, '<')
 
-
+const _26thScrollFun = () => gsap.timeline({ paused: true })
   // 20 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 20,
-  }, "+=1")
+  })
   .to(CARDS[25 - 1], {
     opacity: 0.5
   }, '<')
@@ -1154,14 +1192,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 4642, 0.1)
       lastNumber = 4642
+      canScroll = true
     }
   }, '<')
 
-
+const _27thScrollFun = () => gsap.timeline({ paused: true })
   // 21 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 21,
-  }, "+=1")
+  })
   .to(CARDS[26 - 1], {
     opacity: 0.5
   }, '<')
@@ -1198,14 +1237,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 4667, 0.1)
       lastNumber = 4667
+      canScroll = true
     }
   }, '<')
 
-
+const _28thScrollFun = () => gsap.timeline({ paused: true })
   // 22 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 22,
-  }, "+=1")
+  })
   .to(CARDS[27 - 1], {
     opacity: 0.5
   }, '<')
@@ -1242,14 +1282,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 4767, 0.1)
       lastNumber = 4767
+      canScroll = true
     }
   }, '<')
 
-
+const _29thScrollFun = () => gsap.timeline({ paused: true })
   // 23 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 23,
-  }, "+=1")
+  })
   .to(CARDS[28 - 1], {
     opacity: 0.5
   }, '<')
@@ -1286,14 +1327,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 4967, 0.1)
       lastNumber = 4967
+      canScroll = true
     }
   }, '<')
 
-
+const _30thScrollFun = () => gsap.timeline({ paused: true })
   // 24 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 24,
-  }, "+=1")
+  })
   .to(CARDS[29 - 1], {
     opacity: 0.5
   }, '<')
@@ -1330,14 +1372,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 5017, 0.1)
       lastNumber = 5017
+      canScroll = true
     }
   }, '<')
 
-
+const _31thScrollFun = () => gsap.timeline({ paused: true })
   // 25 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 25,
-  }, "+=1")
+  })
   .to(CARDS[30 - 1], {
     opacity: 0.5
   }, '<')
@@ -1374,14 +1417,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 5067, 0.1)
       lastNumber = 5067
+      canScroll = true
     }
   }, '<')
 
-
+const _32thScrollFun = () => gsap.timeline({ paused: true })
   // 26 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 26,
-  }, "+=1")
+  })
   .to(CARDS[31 - 1], {
     opacity: 0.5
   }, '<')
@@ -1418,14 +1462,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 5567, 0.1)
       lastNumber = 5567
+      canScroll = true
     }
   }, '<')
 
-
+const _33thScrollFun = () => gsap.timeline({ paused: true })
   // 27 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 27,
-  }, "+=1")
+  })
   .to(CARDS[32 - 1], {
     opacity: 0.5
   }, '<')
@@ -1462,14 +1507,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 5717, 0.1)
       lastNumber = 5717
+      canScroll = true
     }
   }, '<')
 
-
+const _34thScrollFun = () => gsap.timeline({ paused: true })
   // 28 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 28,
-  }, "+=1")
+  })
   .to(CARDS[33 - 1], {
     opacity: 0.5
   }, '<')
@@ -1506,14 +1552,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 5817, 0.1)
       lastNumber = 5817
+      canScroll = true
     }
   }, '<')
 
-
+const _35thScrollFun = () => gsap.timeline({ paused: true })
   // 29 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 29,
-  }, "+=1")
+  })
   .to(CARDS[34 - 1], {
     opacity: 0.5
   }, '<')
@@ -1550,14 +1597,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 6017, 0.1)
       lastNumber = 6017
+      canScroll = true
     }
   }, '<')
 
-
+const _36thScrollFun = () => gsap.timeline({ paused: true })
   // 30 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 30,
-  }, "+=1")
+  })
   .to(CARDS[35 - 1], {
     opacity: 0.5
   }, '<')
@@ -1594,14 +1642,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 6517, 0.1)
       lastNumber = 6517
+      canScroll = true
     }
   }, '<')
 
-
+const _37thScrollFun = () => gsap.timeline({ paused: true })
   // 31 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 31,
-  }, "+=1")
+  })
   .to(CARDS[36 - 1], {
     opacity: 0.5
   }, '<')
@@ -1638,14 +1687,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 6617, 0.1)
       lastNumber = 6617
+      canScroll = true
     }
   }, '<')
 
-
+const _38thScrollFun = () => gsap.timeline({ paused: true })
   // 32 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 32,
-  }, "+=1")
+  })
   .to(CARDS[37 - 1], {
     opacity: 0.5
   }, '<')
@@ -1682,14 +1732,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 6667, 0.1)
       lastNumber = 6667
+      canScroll = true
     }
   }, '<')
 
-
+const _39thScrollFun = () => gsap.timeline({ paused: true })
   // 33 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 33,
-  }, "+=1")
+  })
   .to(CARDS[38 - 1], {
     opacity: 0.5
   }, '<')
@@ -1726,14 +1777,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 6717, 0.1)
       lastNumber = 6717
+      canScroll = true
     }
   }, '<')
 
-
+const _40thScrollFun = () => gsap.timeline({ paused: true })
   // 34 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 34,
-  }, "+=1")
+  })
   .to(CARDS[39 - 1], {
     opacity: 0.5
   }, '<')
@@ -1770,14 +1822,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 6262, 0.1)
       lastNumber = 6262
+      canScroll = true
     }
   }, '<')
 
-
+const _41thScrollFun = () => gsap.timeline({ paused: true })
   // 35 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 35,
-  }, "+=1")
+  })
   .to(CARDS[40 - 1], {
     opacity: 0.5
   }, '<')
@@ -1814,14 +1867,15 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 6292, 0.1)
       lastNumber = 6292
+      canScroll = true
     }
   }, '<')
 
-
+const _42thScrollFun = () => gsap.timeline({ paused: true })
   // 36 th slide 
   .to(".wheelCon", {
     x: (-cardWidth - margin) * 36,
-  }, "+=1")
+  })
   .to(CARDS[41 - 1], {
     opacity: 0.5
   }, '<')
@@ -1858,16 +1912,39 @@ rotate
     onComplete: () => {
       increaseNumberAnimation('savingQuantity', lastNumber, 6462, 0.1)
       lastNumber = 6462
+      canScroll = true
     }
   }, '<')
-  .to('.savingCon', {
-    //position: 'absolute',
+
+
+const _43thScrollFun = () => gsap.timeline({ paused: true })
+  .to(".hero, .tempDivWrapper", {
     opacity: 0,
-    duration: 0.5
+    duration: 0.3,
+    onComplete: () => {
+      gsap.set(".hero, .tempDivWrapper", {
+        display: 'none',
+        duration: 0
+      })
+      setTimeout(() => {
+        enableScroll()
+      }, 1000)
+    }
   })
 
 
+
+
+
+
 window.onload = function () {
+  if (window.innerWidth < 768) {
+    const tile = document.querySelector('.tile');
+    const tileOffsetTop = tile.offsetTop;
+
+    tile.style.top = `-${tileOffsetTop}px`;
+    console.log("tilePosition", tileOffsetTop)
+  }
   const container = document.querySelector('.wheel');
   const card7 = document.querySelector('.card01');
 
@@ -1927,9 +2004,596 @@ window.onload = function () {
           }, {
             opacity: 0,
             duration: 0.5,
+            onComplete: () => {
+              canScroll = true
+            }
           })
         }
       })
     }
   })
+
+  disableScroll()
 };
+
+const firstScrollFun = () => {
+  return gsap.timeline({ paused: true })
+    .add(() => {
+      console.log("Shit", document.documentElement.clientWidth)
+      if (document.documentElement.clientWidth < 768) {
+        console.log("Shit 2")
+        const tl = gsap.timeline()
+        tl
+          .to(".cardCon", {
+            y: "-350px",
+            duration: 0.7
+          })
+          .to(".hero", {
+            y: "-400px",
+            duration: 0.7
+          }, "<")
+          .to(".savingCon", {
+            y: "10px",
+            onComplete: () => {
+              console.log("fitst completed")
+            }
+          }, "<")
+      } else {
+        console.log("Shit 3")
+        gsap.to(window, {
+          scrollTo: {
+            y: 450,
+          },
+          onStart: () => console.log("this is Started")
+        })
+      }
+    })
+    .to('.savingCon', {
+      opacity: 0,
+      duration: 0
+    }, "<")
+    .to(".card, .cardFake, .cardFake2", {
+      opacity: 0.5,
+      duration: 0.5,
+      onStart: () => {
+        gsap.to(".savingCon", {
+          opacity: 1,
+          duration: 0.5
+        })
+      }
+    }, "<")
+    .to(".card01", {
+      opacity: 1,
+      duration: 1,
+    }, "<")
+    .add(() => {
+      canScroll = true
+      scrollPosition = 1
+    })
+}
+
+const firstScrollReverseFun = () => gsap.timeline({ paused: true })
+  .to(".card, .cardFake, .cardFake2", {
+    opacity: 1,
+    duration: 1,
+  })
+  .to(window, {
+    scrollTo: {
+      y: 0,
+    }
+  }, "<")
+  .to('.savingCon', {
+    opacity: 0,
+    duration: 0
+  }, "<")
+  .add(() => {
+    scrollPosition = 0
+    canScroll = true
+  })
+
+
+function captureScroll(event) {
+  event.preventDefault();
+  console.log("Scroll Detected", scrollPosition)
+  if (window.innerWidth < 768) {
+    const tile = document.querySelector('.tile');
+    const tileOffsetTop = tile.offsetTop;
+
+    tile.style.top = `-${tileOffsetTop}px`;
+    console.log("tilePosition", tileOffsetTop)
+  }
+
+  if (canScroll) {
+    canScroll = false
+    console.log("Scroll captured", scrollPosition)
+    if (scrollPosition === 0) {
+      const firstScroll = firstScrollFun()
+      firstScroll.play()
+    } else if (scrollPosition === 1) {
+      //if (event.deltaY > 0) {
+      const secondScroll = secondScrollFun()
+      secondScroll.play()
+      //} else {
+      //  console.log("this")
+      //  const firstScrollReverse = firstScrollReverseFun()
+      //  firstScrollReverse.play()
+      //}
+    } else if (scrollPosition === 2) {
+      //if (event.deltaY > 0) {
+      const thirdScroll = thirdScrollFun()
+      thirdScroll.play()
+      //} else {
+      //  const secondScrollReverse = secondScrollReverseFun()
+      //  secondScrollReverse.play()
+      //}
+    } else if (scrollPosition === 3) {
+      //if (event.deltaY > 0) {
+      const fourthScroll = fourthScrollFun()
+      fourthScroll.play()
+      //} else {
+      //  const thirdScrollReverse = thirdScrollReverseFun()
+      //  thirdScrollReverse.play()
+      //}
+    } else if (scrollPosition === 4) {
+      //if (event.deltaY > 0) {
+      const fifthScroll = fifthScrollFun()
+      fifthScroll.play()
+      //} else {
+      //  const fourthScrollReverse = fourthScrollReverseFun()
+      //  fourthScrollReverse.play()
+      //}
+    } else if (scrollPosition === 5) {
+      //if (event.deltaY > 0) {
+      const sixthScroll = sixthScrollFun()
+      sixthScroll.play()
+      //} else {
+      //  const fifthScrollReverse = fifthScrollReverseFun()
+      //  fifthScrollReverse.play()
+      //}
+    } else if (scrollPosition === 6) {
+      //if (event.deltaY > 0) {
+      const seventhScroll = seventhScrollFun()
+      seventhScroll.play()
+      //} else {
+      //  const sixthScrollReverse = sixthScrollReverseFun()
+      //  sixthScrollReverse.play()
+      //}
+    } else if (scrollPosition === 7) {
+      //if (event.deltaY > 0) {
+      const eightScroll = eightScrollFun()
+      eightScroll.play()
+      //} else {
+      //  const seventhScrollReverse = seventhScrollReverseFun()
+      //  seventhScrollReverse.play()
+      //}
+    } else if (scrollPosition === 8) {
+      //if (event.deltaY > 0) {
+      const ninthScroll = ninthScrollFun()
+      ninthScroll.play()
+      //} else {
+      //  const eightScrollReverse = eighthScrollReverseFun()
+      //  eightScrollReverse.play()
+      //}
+    } else if (scrollPosition === 9) {
+      //if (event.deltaY > 0) {
+      const tenthScroll = tenthScrollFun()
+      tenthScroll.play()
+      //} else {
+      //  const ninthScrollReverse = ninthScrollReverseFun()
+      //  ninthScrollReverse.play()
+      //}
+    } else if (scrollPosition === 10) {
+      //if (event.deltaY > 0) {
+      const eleventhScroll = eleventhScrollFun()
+      eleventhScroll.play()
+      //} else {
+      //  const tenthScrollReverse = tenthScrollReverseFun()
+      //  tenthScrollReverse.play()
+      //}
+    } else if (scrollPosition === 11) {
+      //if (event.deltaY > 0) {
+      scrollPosition = 12
+      const _12thScroll = _12thScrollFun()
+      _12thScroll.play()
+      //} else {
+      //  const eleventhScrollReverse = eleventhScrollReverseFun()
+      //  eleventhScrollReverse.play()
+      //}
+    } else if (scrollPosition === 12) {
+      scrollPosition = 13
+      const _13thScroll = _13thScrollFun()
+      _13thScroll.play()
+    } else if (scrollPosition === 13) {
+      scrollPosition = 14
+      const _14thScroll = _14thScrollFun()
+      _14thScroll.play()
+    } else if (scrollPosition === 14) {
+      scrollPosition = 15
+      const _15thScroll = _15thScrollFun()
+      _15thScroll.play()
+    } else if (scrollPosition === 15) {
+      scrollPosition = 16
+      const _16thScroll = _16thScrollFun()
+      _16thScroll.play()
+    } else if (scrollPosition === 16) {
+      scrollPosition = 17
+      const _17thScroll = _17thScrollFun()
+      _17thScroll.play()
+    } else if (scrollPosition === 17) {
+      scrollPosition = 18
+      const _18thScroll = _18thScrollFun()
+      _18thScroll.play()
+    } else if (scrollPosition === 18) {
+      scrollPosition = 19
+      const _19thScroll = _19thScrollFun()
+      _19thScroll.play()
+    } else if (scrollPosition === 19) {
+      scrollPosition = 20
+      const _20thScroll = _20thScrollFun()
+      _20thScroll.play()
+    } else if (scrollPosition === 20) {
+      scrollPosition = 21
+      const _21thScroll = _21thScrollFun()
+      _21thScroll.play()
+    } else if (scrollPosition === 21) {
+      scrollPosition = 22
+      const _22thScroll = _22thScrollFun()
+      _22thScroll.play()
+    } else if (scrollPosition === 22) {
+      scrollPosition = 23
+      const _23thScroll = _23thScrollFun()
+      _23thScroll.play()
+    } else if (scrollPosition === 23) {
+      scrollPosition = 24
+      const _24thScroll = _24thScrollFun()
+      _24thScroll.play()
+    } else if (scrollPosition === 24) {
+      scrollPosition = 25
+      const _25thScroll = _25thScrollFun()
+      _25thScroll.play()
+    } else if (scrollPosition === 25) {
+      scrollPosition = 26
+      const _26thScroll = _26thScrollFun()
+      _26thScroll.play()
+    } else if (scrollPosition === 26) {
+      scrollPosition = 27
+      const _27thScroll = _27thScrollFun()
+      _27thScroll.play()
+    } else if (scrollPosition === 27) {
+      scrollPosition = 28
+      const _28thScroll = _28thScrollFun()
+      _28thScroll.play()
+    } else if (scrollPosition === 28) {
+      scrollPosition = 29
+      const _29thScroll = _29thScrollFun()
+      _29thScroll.play()
+    } else if (scrollPosition === 29) {
+      scrollPosition = 30
+      const _30thScroll = _30thScrollFun()
+      _30thScroll.play()
+    } else if (scrollPosition === 30) {
+      scrollPosition = 31
+      const _31thScroll = _31thScrollFun()
+      _31thScroll.play()
+    } else if (scrollPosition === 31) {
+      scrollPosition = 32
+      const _32thScroll = _32thScrollFun()
+      _32thScroll.play()
+    } else if (scrollPosition === 32) {
+      scrollPosition = 33
+      const _33thScroll = _33thScrollFun()
+      _33thScroll.play()
+    } else if (scrollPosition === 33) {
+      scrollPosition = 34
+      const _34thScroll = _34thScrollFun()
+      _34thScroll.play()
+    } else if (scrollPosition === 34) {
+      scrollPosition = 35
+      const _35thScroll = _35thScrollFun()
+      _35thScroll.play()
+    } else if (scrollPosition === 35) {
+      scrollPosition = 36
+      const _36thScroll = _36thScrollFun()
+      _36thScroll.play()
+    } else if (scrollPosition === 36) {
+      scrollPosition = 37
+      const _37thScroll = _37thScrollFun()
+      _37thScroll.play()
+    } else if (scrollPosition === 37) {
+      scrollPosition = 38
+      const _38thScroll = _38thScrollFun()
+      _38thScroll.play()
+    } else if (scrollPosition === 38) {
+      scrollPosition = 39
+      const _39thScroll = _39thScrollFun()
+      _39thScroll.play()
+    } else if (scrollPosition === 39) {
+      scrollPosition = 40
+      const _40thScroll = _40thScrollFun()
+      _40thScroll.play()
+    } else if (scrollPosition === 40) {
+      scrollPosition = 41
+      const _41thScroll = _41thScrollFun()
+      _41thScroll.play()
+    } else if (scrollPosition === 41) {
+      console.log("this is happening")
+      scrollPosition = 42
+      const _42thScroll = _42thScrollFun()
+      _42thScroll.play()
+    } else if (scrollPosition === 42) {
+      console.log("this is happening 2")
+      scrollPosition = 43
+      const _43thScroll = _43thScrollFun()
+      _43thScroll.play()
+    }
+  }
+
+
+}
+
+const secondScrollReverseFun = () => gsap.timeline({ paused: true })
+  .add(() => {
+    scrollPosition = 3
+    if (!debug) {
+      hideDetails(ToHero, FromHero)
+    }
+  })
+
+
+const thirdScrollReverseFun = () => gsap.timeline({ paused: true })
+  .to(".wheelCon", {
+    x: 0,
+  })
+  .to(CARDS[6 - 1], {
+    opacity: 1
+  }, '<')
+  .to(CARDS[6], {
+    opacity: 0.5
+  }, '<')
+
+  .to(CARDS[6 - 3], {
+    y: '110px',
+    rotate: '-16deg'
+  }, '<')
+  .to(CARDS[6 - 2], {
+    y: '30px',
+    rotate: '-8deg'
+  }, '<')
+  .to(CARDS[6 - 1], {
+    y: '-20px',
+    rotate: '0deg'
+  }, '<')
+  .to(CARDS[6 + 0], {
+    y: '30px',
+    rotate: '8deg'
+  }, '<')
+  .to(CARDS[6 + 1], {
+    y: '110px',
+    rotate: '16deg',
+  }, '<')
+  .to(CARDS[6 + 2], {
+    y: '240px',
+    rotate: '16deg',
+  }, '<')
+  .add(() => {
+    scrollPosition = 2
+    if (!debug) {
+      showDetails(tiles[0], pages[0], 252)
+    }
+  })
+
+const fourthScrollReverseFun = () => gsap.timeline({ paused: true })
+  .add(() => {
+    scrollPosition = 4
+    console.log("4 Reverse")
+    if (!debug) {
+      showDetails(tiles[1], pages[1], 402)
+    }
+  })
+
+const fifthScrollReverseFun = () => gsap.timeline({ paused: true })
+  .to(".wheelCon", {
+    x: (-cardWidth - margin),
+    onComplete: () => console.log("5 Reverse")
+  })
+  .to(CARDS[7 - 1], {
+    opacity: 1
+  }, '<')
+  .to(CARDS[7], {
+    opacity: 0.5
+  }, '<')
+
+  .to(CARDS[7 - 3], {
+    y: '110px',
+    rotate: '-16deg'
+  }, '<')
+  .to(CARDS[7 - 2], {
+    y: '30px',
+    rotate: '-8deg'
+  }, '<')
+  .to(CARDS[7 - 1], {
+    y: '-20px',
+    rotate: '0deg'
+  }, '<')
+  .to(CARDS[7 + 0], {
+    y: '30px',
+    rotate: '8deg'
+  }, '<')
+  .to(CARDS[7 + 1], {
+    y: '110px',
+    rotate: '16deg',
+  }, '<')
+  .to(CARDS[7 + 2], {
+    y: '240px',
+    rotate: '16deg',
+  }, '<')
+  .add(() => {
+    scrollPosition = 4
+    if (!debug) {
+      showDetails(tiles[1], pages[1], 402)
+    }
+  })
+
+
+
+const sixthScrollReverseFun = () => gsap.timeline({ paused: true })
+  .add(() => {
+    console.log("6 Reverse")
+    scrollPosition = 5
+    if (!debug) {
+      hideDetails(ToHero, FromHero)
+    }
+  })
+
+const seventhScrollReverseFun = () => gsap.timeline({ paused: true })
+  .to(".wheelCon", {
+    x: (-cardWidth - margin) * 2,
+  })
+  .to(CARDS[8 - 1], {
+    opacity: 1
+  }, '<')
+  .to(CARDS[8], {
+    opacity: 0.5
+  }, '<')
+
+  .to(CARDS[8 - 3], {
+    y: '110px',
+    rotate: '-16deg'
+  }, '<')
+  .to(CARDS[8 - 2], {
+    y: '30px',
+    rotate: '-8deg'
+  }, '<')
+  .to(CARDS[8 - 1], {
+    y: '-20px',
+    rotate: '0deg'
+  }, '<')
+  .to(CARDS[8 + 0], {
+    y: '30px',
+    rotate: '8deg'
+  }, '<')
+  .to(CARDS[8 + 1], {
+    y: '110px',
+    rotate: '16deg',
+  }, '<')
+  .to(CARDS[8 + 2], {
+    y: '240px',
+    rotate: '16deg',
+  }, '<')
+  .add(() => {
+    scrollPosition = 6
+    if (!debug) {
+      hideDetails(ToHero, FromHero)
+    }
+  })
+
+const eighthScrollReverseFun = () => gsap.timeline({ paused: true })
+  .add(() => {
+    scrollPosition = 8
+    if (!debug) {
+      hideDetails(ToHero, FromHero)
+    }
+  })
+
+const ninthScrollReverseFun = () => gsap.timeline({ paused: true })
+  //fourth slide
+  .to(".wheelCon", {
+    x: (-cardWidth - margin) * 3,
+  })
+  .to(CARDS[9 - 1], {
+    opacity: 1
+  }, '<')
+  .to(CARDS[9], {
+    opacity: 0.5
+  }, '<')
+  .to(CARDS[9 - 3], {
+    y: '110px',
+    rotate: '-16deg'
+  }, '<')
+  .to(CARDS[9 - 2], {
+    y: '30px',
+    rotate: '-8deg'
+  }, '<')
+  .to(CARDS[9 - 1], {
+    y: '-20px',
+    rotate: '0deg'
+  }, '<')
+  .to(CARDS[9 + 0], {
+    y: '30px',
+    rotate: '8deg'
+  }, '<')
+  .to(CARDS[9 + 1], {
+    y: '110px',
+    rotate: '16deg',
+  }, '<')
+  .to(CARDS[9 + 2], {
+    y: '240px',
+    rotate: '16deg',
+  }, '<')
+  .add(() => {
+    scrollPosition = 9
+    if (!debug) {
+      showDetails(tiles[3], pages[3], 2502)
+    }
+  })
+
+
+const tenthScrollReverseFun = () => gsap.timeline({ paused: true })
+  .add(() => {
+    scrollPosition = 10
+    if (!debug) {
+      hideDetails(ToHero, FromHero)
+    }
+  })
+
+const eleventhScrollReverseFun = () => gsap.timeline({ paused: true })
+  // 5 th slide 
+  .to(".wheelCon", {
+    x: (-cardWidth - margin) * 4,
+  }, "+=1")
+  .to(CARDS[10 - 1], {
+    opacity: 0.5
+  }, '<')
+  .to(CARDS[10], {
+    opacity: 1
+  }, '<')
+  .to(CARDS[10 - 3], {
+    y: '240px',
+    rotate: '-15deg'
+  }, '<')
+  .to(CARDS[10 - 2], {
+    y: '110px',
+    rotate: '-16deg'
+  }, '<')
+  .to(CARDS[10 - 1], {
+    y: '30px',
+    rotate: '-8deg'
+  }, '<')
+  .to(CARDS[10 + 0], {
+    y: '-20px',
+    rotate: '0deg'
+  }, '<')
+  .to(CARDS[10 + 1], {
+    y: '30px',
+    rotate: '8deg',
+  }, '<')
+  .to(CARDS[10 + 2], {
+    y: '110px',
+    rotate: '16deg'
+  }, '<')
+  .to(CARDS[10 + 3], {
+    y: '240px',
+    rotate: '24deg',
+    onComplete: () => {
+      increaseNumberAnimation('savingQuantity', lastNumber, 2827, 0.1)
+      lastNumber = 2827
+      canScroll = true
+    }
+  }, '<')
+
+  .add(() => {
+    scrollPosition = 11
+    if (!debug) {
+      showDetails(tiles[4], pages[4], 2622)
+    }
+  })

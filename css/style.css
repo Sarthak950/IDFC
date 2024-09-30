@@ -5,6 +5,14 @@
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+
+  /* Firefox */
+  &> ::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 :root {
@@ -19,9 +27,8 @@
 }
 
 html {
-  max-width: 100vw;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
 }
 
 body {
@@ -33,4 +40,23 @@ body {
   background: pink;
   width: 100vw;
   border: 1px solid black;
+}
+
+.mob {
+  display: none;
+}
+
+.desk {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .mob {
+    display: unset;
+  }
+
+  .desk {
+    display: none;
+  }
+
 }

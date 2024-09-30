@@ -23,3 +23,19 @@ nav {
     font-weight: 600;
   }
 }
+
+@media (max-width: 768px) {
+  nav {
+    padding: 13px 10px;
+
+    img {
+      width: 90px;
+      height: auto;
+    }
+
+    a {
+      display: none;
+    }
+  }
+
+}

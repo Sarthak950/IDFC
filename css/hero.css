@@ -51,3 +51,54 @@
   top: -100px;
   left: 500px;
 }
+
+
+
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 150px;
+  }
+
+  .hero-heading {
+    font-size: 38px;
+    line-height: unset;
+    text-align: center;
+  }
+
+  .hero-para {
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 24px;
+    width: 344px;
+
+    &>span {
+      font-weight: 600;
+    }
+  }
+
+
+  .hero-link {
+    color: var(--bank-red);
+    font-size: 16px;
+    border: 2px solid var(--bank-red);
+    background: var(--bank-red);
+    color: white;
+    border-radius: 1000px;
+    padding: 11px 20px;
+    font-weight: bold;
+    margin-top: 28px;
+  }
+
+  .bg-circle {
+    position: absolute;
+    top: -450px;
+    left: -300px;
+    z-index: -1;
+  }
+
+  .bg-circle2 {
+    top: -100px;
+    left: 500px;
+  }
+
+}
