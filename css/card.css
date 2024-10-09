@@ -30,7 +30,7 @@
 }
 
 .cardFake2 {
-  opacity: 0.5 !important;
+  opacity: 0.2 !important;
 }
 
 .card,
@@ -40,7 +40,7 @@
   width: 305px;
   height: 406px;
   -ms-flex-negative: 0;
-      flex-shrink: 0;
+  flex-shrink: 0;
   border-radius: 12px;
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(251, 242, 219, 1)), to(rgba(254, 235, 234, 1)));
   background: -o-linear-gradient(top, rgba(251, 242, 219, 1) 0%, rgba(254, 235, 234, 1) 100%);
@@ -51,11 +51,11 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 10px;
   text-align: center;
   position: relative;
@@ -72,11 +72,11 @@
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     position: absolute;
     right: 10px;
 
@@ -151,6 +151,7 @@
   }
 }
 
+.last-card2,
 .last-card {
   position: relative;
   background: none;
@@ -180,13 +181,21 @@
     margin-bottom: 12px;
   }
 
-  h3 {
+  h3,
+  button {
     font-size: 10px;
     font-weight: 500;
     text-decoration: underline;
+    border: none;
+    background: none;
+  }
+
+  button:hover {
+    cursor: pointer;
   }
 }
 
+.last-card2::before,
 .last-card::before {
   content: "";
   position: absolute;
@@ -209,11 +218,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   border: 2px solid var(--blood-red);
   border-radius: 1000px;
   padding: 6px 34px 6px 6px;
@@ -224,8 +233,8 @@
   bottom: 0px;
   left: 50%;
   -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-          transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
   opacity: 0;
 }
 
@@ -297,6 +306,7 @@
     img {
       width: 160px;
     }
+
     h1 {
       font-size: 22px;
     }
@@ -321,7 +331,7 @@
     }
   }
 
-
+  .last-car2,
   .last-card {
     position: relative;
     background: none;

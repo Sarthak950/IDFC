@@ -2,14 +2,18 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { CustomEase } from "gsap/src/all";
+import { CSSRulePlugin } from "gsap/all";
 import { Flip } from "gsap/all";
 
 
 const debug = false
 let canScroll = false;
 let scrollPosition = 0
+const cardOpacity = 0.2
+let pdfOpen = false
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, MotionPathPlugin, Flip);
+gsap.registerPlugin(ScrollTrigger, CSSRulePlugin, ScrollToPlugin, MotionPathPlugin, Flip, CustomEase);
 
 let position = 70
 gsap.set('.last-card', {
@@ -95,6 +99,8 @@ function showDetails(fromHero, toHero, increment = 0) {
   gsap.set(toHero, { clearProps: true }); // wipe out all inline stuff so it's in the native state (not scaled)
   gsap.set(toHero, { visibility: "visible" });
 
+  const h2Before = CSSRulePlugin.getRule(".tileRight h2::after");
+
   Flip.from(state, {
     duration: 0.5,
     ease: "power2.in",
@@ -131,10 +137,21 @@ function showDetails(fromHero, toHero, increment = 0) {
       increaseNumberAnimation('savingQuantity', lastNumber, increment, 0.1)
       lastNumber = increment
     })
+    .fromTo("html", {
+      "--length": "0%",
+    }, {
+      "--length": "100%",
+      duration: 0.5
+    }, "+=0.2")
     .to(".tileRight h2", {
       scale: 1,
       color: "#DE8B70",
     }, "+=0.3")
+    .fromTo("html", {
+      "--bg-for-line": "#9B1E26"
+    }, {
+      "--bg-for-line": "#DE8B70",
+    }, "<")
     .fromTo(".tileRight h4", {
       y: 10,
     }, {
@@ -205,7 +222,7 @@ function increaseNumberAnimation(elementId, lastNumber, endNumber, speed = 10) {
 function incNbrRec(currentNumber, endNumber, element, speed, steps) {
   if (currentNumber <= endNumber) {
     element.innerHTML = currentNumber.toLocaleString();
-    setTimeout(function () {
+    setTimeout(function() {
       incNbrRec(currentNumber + steps, endNumber, element, speed, steps)
     }, speed) //Delay a bit before calling the function again.
   } else {
@@ -254,7 +271,7 @@ const thirdScrollFun = () => gsap.timeline({ paused: true })
     x: -cardWidth - margin,
   }, "+=1")
   .to(CARDS[6 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[6], {
     opacity: 1
@@ -311,7 +328,7 @@ const fifthScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 2,
   }, "+=1")
   .to(CARDS[7 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[7], {
     opacity: 1
@@ -368,7 +385,7 @@ const seventhScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 3,
   }, "+=1")
   .to(CARDS[8 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[8], {
     opacity: 1
@@ -425,7 +442,7 @@ const ninthScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 4,
   }, "+=1")
   .to(CARDS[9 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[9], {
     opacity: 1
@@ -481,7 +498,7 @@ const eleventhScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 5,
   }, "+=1")
   .to(CARDS[10 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[10], {
     opacity: 1
@@ -527,7 +544,7 @@ const _12thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 6,
   })
   .to(CARDS[11 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[11], {
     opacity: 1
@@ -572,7 +589,7 @@ const _13thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 7,
   })
   .to(CARDS[12 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[12], {
     opacity: 1
@@ -617,7 +634,7 @@ const _14thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 8,
   })
   .to(CARDS[13 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[13], {
     opacity: 1
@@ -662,7 +679,7 @@ const _15thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 9,
   })
   .to(CARDS[14 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[14], {
     opacity: 1
@@ -707,7 +724,7 @@ const _16thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 10,
   })
   .to(CARDS[15 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[15], {
     opacity: 1
@@ -752,7 +769,7 @@ const _17thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 11,
   })
   .to(CARDS[16 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[16], {
     opacity: 1
@@ -797,7 +814,7 @@ const _18thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 12,
   })
   .to(CARDS[17 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[17], {
     opacity: 1
@@ -842,7 +859,7 @@ const _19thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 13,
   })
   .to(CARDS[18 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[18], {
     opacity: 1
@@ -887,7 +904,7 @@ const _20thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 14,
   })
   .to(CARDS[19 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[19], {
     opacity: 1
@@ -932,7 +949,7 @@ const _21thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 15,
   })
   .to(CARDS[20 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[20], {
     opacity: 1
@@ -977,7 +994,7 @@ const _22thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 16,
   })
   .to(CARDS[21 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[21], {
     opacity: 1
@@ -1022,7 +1039,7 @@ const _23thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 17,
   })
   .to(CARDS[22 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[22], {
     opacity: 1
@@ -1067,7 +1084,7 @@ const _24thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 18,
   })
   .to(CARDS[23 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[23], {
     opacity: 1
@@ -1112,7 +1129,7 @@ const _25thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 19,
   })
   .to(CARDS[24 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[24], {
     opacity: 1
@@ -1157,7 +1174,7 @@ const _26thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 20,
   })
   .to(CARDS[25 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[25], {
     opacity: 1
@@ -1202,7 +1219,7 @@ const _27thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 21,
   })
   .to(CARDS[26 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[26], {
     opacity: 1
@@ -1247,7 +1264,7 @@ const _28thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 22,
   })
   .to(CARDS[27 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[27], {
     opacity: 1
@@ -1292,7 +1309,7 @@ const _29thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 23,
   })
   .to(CARDS[28 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[28], {
     opacity: 1
@@ -1337,7 +1354,7 @@ const _30thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 24,
   })
   .to(CARDS[29 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[29], {
     opacity: 1
@@ -1382,7 +1399,7 @@ const _31thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 25,
   })
   .to(CARDS[30 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[30], {
     opacity: 1
@@ -1427,7 +1444,7 @@ const _32thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 26,
   })
   .to(CARDS[31 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[31], {
     opacity: 1
@@ -1472,7 +1489,7 @@ const _33thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 27,
   })
   .to(CARDS[32 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[32], {
     opacity: 1
@@ -1517,7 +1534,7 @@ const _34thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 28,
   })
   .to(CARDS[33 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[33], {
     opacity: 1
@@ -1562,7 +1579,7 @@ const _35thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 29,
   })
   .to(CARDS[34 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[34], {
     opacity: 1
@@ -1607,7 +1624,7 @@ const _36thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 30,
   })
   .to(CARDS[35 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[35], {
     opacity: 1
@@ -1652,7 +1669,7 @@ const _37thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 31,
   })
   .to(CARDS[36 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[36], {
     opacity: 1
@@ -1697,7 +1714,7 @@ const _38thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 32,
   })
   .to(CARDS[37 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[37], {
     opacity: 1
@@ -1742,7 +1759,7 @@ const _39thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 33,
   })
   .to(CARDS[38 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[38], {
     opacity: 1
@@ -1787,7 +1804,7 @@ const _40thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 34,
   })
   .to(CARDS[39 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[39], {
     opacity: 1
@@ -1832,7 +1849,7 @@ const _41thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 35,
   })
   .to(CARDS[40 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[40], {
     opacity: 1
@@ -1877,7 +1894,7 @@ const _42thScrollFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 36,
   })
   .to(CARDS[41 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[41], {
     opacity: 1
@@ -1937,7 +1954,7 @@ const _43thScrollFun = () => gsap.timeline({ paused: true })
 
 
 
-window.onload = function () {
+window.onload = function() {
 
   // scroll to element with id fakeDiv
 
@@ -1998,7 +2015,7 @@ window.onload = function () {
     },
     duration: 0.1,
     onComplete: () => {
-      setTimeout(function () { window.scrollTo(0, 0); }, 1)
+      setTimeout(function() { window.scrollTo(0, 0); }, 1)
       gsap.fromTo(".savingCon", {
         opacity: 0,
       }, {
@@ -2032,7 +2049,7 @@ const firstScrollFun = () => {
         tl
           .to(".cardCon", {
             y: "-350px",
-            duration: 0.7
+            duration: 0.7,
           })
           .to(".hero", {
             y: "-400px",
@@ -2045,13 +2062,30 @@ const firstScrollFun = () => {
             }
           }, "<")
       } else {
+        let scrollDis = 450
+        if (document.documentElement.clientWidth < 1280) scrollDis = 520
         console.log("Shit 3")
-        gsap.to(window, {
-          scrollTo: {
-            y: 450,
-          },
-          onStart: () => console.log("this is Started")
-        })
+        const tl = gsap.timeline()
+        tl
+          .to(window, {
+            scrollTo: {
+              y: scrollDis,
+            },
+            duration: 0.35,
+            ease: "power2.in"
+          })
+          .to(".wheelCon", {
+            y: "-100px",
+            duration: 0.3,
+          }, "-=0.2")
+          .to(".wheelCon", {
+            y: "50px",
+            duration: 0.2,
+          })
+          .to(".wheelCon", {
+            y: "0px",
+            duration: 0.1,
+          })
       }
     })
     .to('.savingCon', {
@@ -2059,7 +2093,7 @@ const firstScrollFun = () => {
       duration: 0
     }, "<")
     .to(".card, .cardFake, .cardFake2", {
-      opacity: 0.5,
+      opacity: cardOpacity,
       duration: 0.5,
       onStart: () => {
         gsap.to(".savingCon", {
@@ -2099,238 +2133,255 @@ const firstScrollReverseFun = () => gsap.timeline({ paused: true })
 
 
 function captureScroll(event) {
-  event.preventDefault();
   console.log("Scroll Detected", scrollPosition)
-  if (window.innerWidth < 768) {
-    const tile = document.querySelector('.tile');
-    const tileOffsetTop = tile.offsetTop;
+  event.preventDefault();
 
-    tile.style.top = `-${tileOffsetTop}px`;
-    console.log("tilePosition", tileOffsetTop)
-  }
+  if (!pdfOpen) {
 
-  if (canScroll) {
-    canScroll = false
-    console.log("Scroll captured", scrollPosition)
-    if (scrollPosition === 0) {
-      const firstScroll = firstScrollFun()
-      firstScroll.play()
-    } else if (scrollPosition === 1) {
-      //if (event.deltaY > 0) {
-      const secondScroll = secondScrollFun()
-      secondScroll.play()
-      //} else {
-      //  console.log("this")
-      //  const firstScrollReverse = firstScrollReverseFun()
-      //  firstScrollReverse.play()
-      //}
-    } else if (scrollPosition === 2) {
-      //if (event.deltaY > 0) {
-      const thirdScroll = thirdScrollFun()
-      thirdScroll.play()
-      //} else {
-      //  const secondScrollReverse = secondScrollReverseFun()
-      //  secondScrollReverse.play()
-      //}
-    } else if (scrollPosition === 3) {
-      //if (event.deltaY > 0) {
-      const fourthScroll = fourthScrollFun()
-      fourthScroll.play()
-      //} else {
-      //  const thirdScrollReverse = thirdScrollReverseFun()
-      //  thirdScrollReverse.play()
-      //}
-    } else if (scrollPosition === 4) {
-      //if (event.deltaY > 0) {
-      const fifthScroll = fifthScrollFun()
-      fifthScroll.play()
-      //} else {
-      //  const fourthScrollReverse = fourthScrollReverseFun()
-      //  fourthScrollReverse.play()
-      //}
-    } else if (scrollPosition === 5) {
-      //if (event.deltaY > 0) {
-      const sixthScroll = sixthScrollFun()
-      sixthScroll.play()
-      //} else {
-      //  const fifthScrollReverse = fifthScrollReverseFun()
-      //  fifthScrollReverse.play()
-      //}
-    } else if (scrollPosition === 6) {
-      //if (event.deltaY > 0) {
-      const seventhScroll = seventhScrollFun()
-      seventhScroll.play()
-      //} else {
-      //  const sixthScrollReverse = sixthScrollReverseFun()
-      //  sixthScrollReverse.play()
-      //}
-    } else if (scrollPosition === 7) {
-      //if (event.deltaY > 0) {
-      const eightScroll = eightScrollFun()
-      eightScroll.play()
-      //} else {
-      //  const seventhScrollReverse = seventhScrollReverseFun()
-      //  seventhScrollReverse.play()
-      //}
-    } else if (scrollPosition === 8) {
-      //if (event.deltaY > 0) {
-      const ninthScroll = ninthScrollFun()
-      ninthScroll.play()
-      //} else {
-      //  const eightScrollReverse = eighthScrollReverseFun()
-      //  eightScrollReverse.play()
-      //}
-    } else if (scrollPosition === 9) {
-      //if (event.deltaY > 0) {
-      const tenthScroll = tenthScrollFun()
-      tenthScroll.play()
-      //} else {
-      //  const ninthScrollReverse = ninthScrollReverseFun()
-      //  ninthScrollReverse.play()
-      //}
-    } else if (scrollPosition === 10) {
-      //if (event.deltaY > 0) {
-      const eleventhScroll = eleventhScrollFun()
-      eleventhScroll.play()
-      //} else {
-      //  const tenthScrollReverse = tenthScrollReverseFun()
-      //  tenthScrollReverse.play()
-      //}
-    } else if (scrollPosition === 11) {
-      //if (event.deltaY > 0) {
-      scrollPosition = 12
-      const _12thScroll = _12thScrollFun()
-      _12thScroll.play()
-      //} else {
-      //  const eleventhScrollReverse = eleventhScrollReverseFun()
-      //  eleventhScrollReverse.play()
-      //}
-    } else if (scrollPosition === 12) {
-      scrollPosition = 13
-      const _13thScroll = _13thScrollFun()
-      _13thScroll.play()
-    } else if (scrollPosition === 13) {
-      scrollPosition = 14
-      const _14thScroll = _14thScrollFun()
-      _14thScroll.play()
-    } else if (scrollPosition === 14) {
-      scrollPosition = 15
-      const _15thScroll = _15thScrollFun()
-      _15thScroll.play()
-    } else if (scrollPosition === 15) {
-      scrollPosition = 16
-      const _16thScroll = _16thScrollFun()
-      _16thScroll.play()
-    } else if (scrollPosition === 16) {
-      scrollPosition = 17
-      const _17thScroll = _17thScrollFun()
-      _17thScroll.play()
-    } else if (scrollPosition === 17) {
-      scrollPosition = 18
-      const _18thScroll = _18thScrollFun()
-      _18thScroll.play()
-    } else if (scrollPosition === 18) {
-      scrollPosition = 19
-      const _19thScroll = _19thScrollFun()
-      _19thScroll.play()
-    } else if (scrollPosition === 19) {
-      scrollPosition = 20
-      const _20thScroll = _20thScrollFun()
-      _20thScroll.play()
-    } else if (scrollPosition === 20) {
-      scrollPosition = 21
-      const _21thScroll = _21thScrollFun()
-      _21thScroll.play()
-    } else if (scrollPosition === 21) {
-      scrollPosition = 22
-      const _22thScroll = _22thScrollFun()
-      _22thScroll.play()
-    } else if (scrollPosition === 22) {
-      scrollPosition = 23
-      const _23thScroll = _23thScrollFun()
-      _23thScroll.play()
-    } else if (scrollPosition === 23) {
-      scrollPosition = 24
-      const _24thScroll = _24thScrollFun()
-      _24thScroll.play()
-    } else if (scrollPosition === 24) {
-      scrollPosition = 25
-      const _25thScroll = _25thScrollFun()
-      _25thScroll.play()
-    } else if (scrollPosition === 25) {
-      scrollPosition = 26
-      const _26thScroll = _26thScrollFun()
-      _26thScroll.play()
-    } else if (scrollPosition === 26) {
-      scrollPosition = 27
-      const _27thScroll = _27thScrollFun()
-      _27thScroll.play()
-    } else if (scrollPosition === 27) {
-      scrollPosition = 28
-      const _28thScroll = _28thScrollFun()
-      _28thScroll.play()
-    } else if (scrollPosition === 28) {
-      scrollPosition = 29
-      const _29thScroll = _29thScrollFun()
-      _29thScroll.play()
-    } else if (scrollPosition === 29) {
-      scrollPosition = 30
-      const _30thScroll = _30thScrollFun()
-      _30thScroll.play()
-    } else if (scrollPosition === 30) {
-      scrollPosition = 31
-      const _31thScroll = _31thScrollFun()
-      _31thScroll.play()
-    } else if (scrollPosition === 31) {
-      scrollPosition = 32
-      const _32thScroll = _32thScrollFun()
-      _32thScroll.play()
-    } else if (scrollPosition === 32) {
-      scrollPosition = 33
-      const _33thScroll = _33thScrollFun()
-      _33thScroll.play()
-    } else if (scrollPosition === 33) {
-      scrollPosition = 34
-      const _34thScroll = _34thScrollFun()
-      _34thScroll.play()
-    } else if (scrollPosition === 34) {
-      scrollPosition = 35
-      const _35thScroll = _35thScrollFun()
-      _35thScroll.play()
-    } else if (scrollPosition === 35) {
-      scrollPosition = 36
-      const _36thScroll = _36thScrollFun()
-      _36thScroll.play()
-    } else if (scrollPosition === 36) {
-      scrollPosition = 37
-      const _37thScroll = _37thScrollFun()
-      _37thScroll.play()
-    } else if (scrollPosition === 37) {
-      scrollPosition = 38
-      const _38thScroll = _38thScrollFun()
-      _38thScroll.play()
-    } else if (scrollPosition === 38) {
-      scrollPosition = 39
-      const _39thScroll = _39thScrollFun()
-      _39thScroll.play()
-    } else if (scrollPosition === 39) {
-      scrollPosition = 40
-      const _40thScroll = _40thScrollFun()
-      _40thScroll.play()
-    } else if (scrollPosition === 40) {
-      scrollPosition = 41
-      const _41thScroll = _41thScrollFun()
-      _41thScroll.play()
-    } else if (scrollPosition === 41) {
-      console.log("this is happening")
-      scrollPosition = 42
-      const _42thScroll = _42thScrollFun()
-      _42thScroll.play()
-    } else if (scrollPosition === 42) {
-      console.log("this is happening 2")
-      scrollPosition = 43
-      const _43thScroll = _43thScrollFun()
-      _43thScroll.play()
+    if (window.innerWidth < 768) {
+      const tile = document.querySelector('.tile');
+      const tileOffsetTop = tile.offsetTop;
+
+      tile.style.top = `-${tileOffsetTop}px`;
+      console.log("tilePosition", tileOffsetTop)
+    }
+
+    if (canScroll) {
+      canScroll = false
+      console.log("Scroll captured", scrollPosition)
+      if (scrollPosition === 0) {
+        const firstScroll = firstScrollFun()
+        firstScroll.play()
+      } else if (scrollPosition === 1) {
+        //if (event.deltaY > 0) {
+        const secondScroll = secondScrollFun()
+        secondScroll.play()
+        //} else {
+        //  console.log("this")
+        //  const firstScrollReverse = firstScrollReverseFun()
+        //  firstScrollReverse.play()
+        //}
+      } else if (scrollPosition === 2) {
+        //if (event.deltaY > 0) {
+        const thirdScroll = thirdScrollFun()
+        thirdScroll.play()
+        //} else {
+        //  const secondScrollReverse = secondScrollReverseFun()
+        //  secondScrollReverse.play()
+        //}
+      } else if (scrollPosition === 3) {
+        //if (event.deltaY > 0) {
+        const fourthScroll = fourthScrollFun()
+        fourthScroll.play()
+        //} else {
+        //  const thirdScrollReverse = thirdScrollReverseFun()
+        //  thirdScrollReverse.play()
+        //}
+      } else if (scrollPosition === 4) {
+        //if (event.deltaY > 0) {
+        const fifthScroll = fifthScrollFun()
+        fifthScroll.play()
+        //} else {
+        //  const fourthScrollReverse = fourthScrollReverseFun()
+        //  fourthScrollReverse.play()
+        //}
+      } else if (scrollPosition === 5) {
+        //if (event.deltaY > 0) {
+        const sixthScroll = sixthScrollFun()
+        sixthScroll.play()
+        //} else {
+        //  const fifthScrollReverse = fifthScrollReverseFun()
+        //  fifthScrollReverse.play()
+        //}
+      } else if (scrollPosition === 6) {
+        //if (event.deltaY > 0) {
+        const seventhScroll = seventhScrollFun()
+        seventhScroll.play()
+        //} else {
+        //  const sixthScrollReverse = sixthScrollReverseFun()
+        //  sixthScrollReverse.play()
+        //}
+      } else if (scrollPosition === 7) {
+        //if (event.deltaY > 0) {
+        const eightScroll = eightScrollFun()
+        eightScroll.play()
+        //} else {
+        //  const seventhScrollReverse = seventhScrollReverseFun()
+        //  seventhScrollReverse.play()
+        //}
+      } else if (scrollPosition === 8) {
+        //if (event.deltaY > 0) {
+        const ninthScroll = ninthScrollFun()
+        ninthScroll.play()
+        //} else {
+        //  const eightScrollReverse = eighthScrollReverseFun()
+        //  eightScrollReverse.play()
+        //}
+      } else if (scrollPosition === 9) {
+        //if (event.deltaY > 0) {
+        const tenthScroll = tenthScrollFun()
+        tenthScroll.play()
+        //} else {
+        //  const ninthScrollReverse = ninthScrollReverseFun()
+        //  ninthScrollReverse.play()
+        //}
+      } else if (scrollPosition === 10) {
+        //if (event.deltaY > 0) {
+        const eleventhScroll = eleventhScrollFun()
+        eleventhScroll.play()
+        //} else {
+        //  const tenthScrollReverse = tenthScrollReverseFun()
+        //  tenthScrollReverse.play()
+        //}
+      } else if (scrollPosition === 11) {
+        //if (event.deltaY > 0) {
+        scrollPosition = 12
+        const _12thScroll = _12thScrollFun()
+        _12thScroll.play()
+        //} else {
+        //  const eleventhScrollReverse = eleventhScrollReverseFun()
+        //  eleventhScrollReverse.play()
+        //}
+      } else if (scrollPosition === 12) {
+        scrollPosition = 13
+        const _13thScroll = _13thScrollFun()
+        _13thScroll.play()
+      } else if (scrollPosition === 13) {
+        scrollPosition = 14
+        const _14thScroll = _14thScrollFun()
+        _14thScroll.play()
+      } else if (scrollPosition === 14) {
+        scrollPosition = 15
+        const _15thScroll = _15thScrollFun()
+        _15thScroll.play()
+      } else if (scrollPosition === 15) {
+        scrollPosition = 16
+        const _16thScroll = _16thScrollFun()
+        _16thScroll.play()
+      } else if (scrollPosition === 16) {
+        scrollPosition = 17
+        const _17thScroll = _17thScrollFun()
+        _17thScroll.play()
+      } else if (scrollPosition === 17) {
+        scrollPosition = 18
+        const _18thScroll = _18thScrollFun()
+        _18thScroll.play()
+      } else if (scrollPosition === 18) {
+        scrollPosition = 19
+        const _19thScroll = _19thScrollFun()
+        _19thScroll.play()
+      } else if (scrollPosition === 19) {
+        scrollPosition = 20
+        const _20thScroll = _20thScrollFun()
+        _20thScroll.play()
+      } else if (scrollPosition === 20) {
+        scrollPosition = 21
+        const _21thScroll = _21thScrollFun()
+        _21thScroll.play()
+      } else if (scrollPosition === 21) {
+        scrollPosition = 22
+        const _22thScroll = _22thScrollFun()
+        _22thScroll.play()
+      } else if (scrollPosition === 22) {
+        scrollPosition = 23
+        const _23thScroll = _23thScrollFun()
+        _23thScroll.play()
+      } else if (scrollPosition === 23) {
+        scrollPosition = 24
+        const _24thScroll = _24thScrollFun()
+        _24thScroll.play()
+      } else if (scrollPosition === 24) {
+        scrollPosition = 25
+        const _25thScroll = _25thScrollFun()
+        _25thScroll.play()
+      } else if (scrollPosition === 25) {
+        scrollPosition = 26
+        const _26thScroll = _26thScrollFun()
+        _26thScroll.play()
+      } else if (scrollPosition === 26) {
+        scrollPosition = 27
+        const _27thScroll = _27thScrollFun()
+        _27thScroll.play()
+      } else if (scrollPosition === 27) {
+        scrollPosition = 28
+        const _28thScroll = _28thScrollFun()
+        _28thScroll.play()
+      } else if (scrollPosition === 28) {
+        scrollPosition = 29
+        const _29thScroll = _29thScrollFun()
+        _29thScroll.play()
+      } else if (scrollPosition === 29) {
+        scrollPosition = 30
+        const _30thScroll = _30thScrollFun()
+        _30thScroll.play()
+      } else if (scrollPosition === 30) {
+        scrollPosition = 31
+        const _31thScroll = _31thScrollFun()
+        _31thScroll.play()
+      } else if (scrollPosition === 31) {
+        scrollPosition = 32
+        const _32thScroll = _32thScrollFun()
+        _32thScroll.play()
+      } else if (scrollPosition === 32) {
+        scrollPosition = 33
+        const _33thScroll = _33thScrollFun()
+        _33thScroll.play()
+      } else if (scrollPosition === 33) {
+        scrollPosition = 34
+        const _34thScroll = _34thScrollFun()
+        _34thScroll.play()
+      } else if (scrollPosition === 34) {
+        scrollPosition = 35
+        const _35thScroll = _35thScrollFun()
+        _35thScroll.play()
+      } else if (scrollPosition === 35) {
+        scrollPosition = 36
+        const _36thScroll = _36thScrollFun()
+        _36thScroll.play()
+      } else if (scrollPosition === 36) {
+        scrollPosition = 37
+        const _37thScroll = _37thScrollFun()
+        _37thScroll.play()
+      } else if (scrollPosition === 37) {
+        scrollPosition = 38
+        const _38thScroll = _38thScrollFun()
+        _38thScroll.play()
+      } else if (scrollPosition === 38) {
+        scrollPosition = 39
+        const _39thScroll = _39thScrollFun()
+        _39thScroll.play()
+      } else if (scrollPosition === 39) {
+        scrollPosition = 40
+        const _40thScroll = _40thScrollFun()
+        _40thScroll.play()
+      } else if (scrollPosition === 40) {
+        scrollPosition = 41
+        const _41thScroll = _41thScrollFun()
+        _41thScroll.play()
+      } else if (scrollPosition === 41) {
+        console.log("this is happening")
+        scrollPosition = 42
+        const _42thScroll = _42thScrollFun()
+        _42thScroll.play()
+      } else if (scrollPosition === 42) {
+        console.log("this is happening 2")
+        scrollPosition = 43
+        const _43thScroll = _43thScrollFun()
+        _43thScroll.play()
+      }
+    }
+  } else {
+    // Let the natural scroll happen, don't prevent it
+    const pdfImgCon = document.querySelector(".pdfImgCon");
+
+    if (event.deltaY > 0) {
+      gsap.to(pdfImgCon, {
+        y: "-=100"
+      });
+    } else {
+      gsap.to(pdfImgCon, {
+        y: "+=100"
+      });
     }
   }
 
@@ -2354,7 +2405,7 @@ const thirdScrollReverseFun = () => gsap.timeline({ paused: true })
     opacity: 1
   }, '<')
   .to(CARDS[6], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
 
   .to(CARDS[6 - 3], {
@@ -2406,7 +2457,7 @@ const fifthScrollReverseFun = () => gsap.timeline({ paused: true })
     opacity: 1
   }, '<')
   .to(CARDS[7], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
 
   .to(CARDS[7 - 3], {
@@ -2459,7 +2510,7 @@ const seventhScrollReverseFun = () => gsap.timeline({ paused: true })
     opacity: 1
   }, '<')
   .to(CARDS[8], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
 
   .to(CARDS[8 - 3], {
@@ -2510,7 +2561,7 @@ const ninthScrollReverseFun = () => gsap.timeline({ paused: true })
     opacity: 1
   }, '<')
   .to(CARDS[9], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[9 - 3], {
     y: '110px',
@@ -2558,7 +2609,7 @@ const eleventhScrollReverseFun = () => gsap.timeline({ paused: true })
     x: (-cardWidth - margin) * 4,
   }, "+=1")
   .to(CARDS[10 - 1], {
-    opacity: 0.5
+    opacity: cardOpacity
   }, '<')
   .to(CARDS[10], {
     opacity: 1
@@ -2603,3 +2654,23 @@ const eleventhScrollReverseFun = () => gsap.timeline({ paused: true })
       showDetails(tiles[4], pages[4], 2622)
     }
   })
+
+
+
+
+// handle the pdf
+document.getElementById("crossButton").addEventListener("click", () => {
+  const pdfCon = document.querySelector(".pdfImgCon");
+  pdfCon.style.visibility = "hidden";
+  pdfOpen = false;
+  gsap.set(pdfCon, {
+    y: "0"
+  });
+})
+
+document.getElementById("pdfOpenBtn").addEventListener("click", () => {
+  console.log("shit")
+  const pdfCon = document.querySelector(".pdfImgCon");
+  pdfCon.style.visibility = "visible"
+  pdfOpen = true;
+})

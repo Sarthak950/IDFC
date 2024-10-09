@@ -13,11 +13,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   visibility: hidden;
 }
 
@@ -27,11 +27,11 @@
   display: flex;
   gap: 100px;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  -ms-flex-align: end;
+  align-items: flex-end;
 
   img {
     width: 272px;
@@ -45,8 +45,8 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 
 
   h1 {
@@ -66,9 +66,24 @@
   h2 {
     color: var(--fade-orange);
     font-size: 40px;
-    text-decoration: line-through;
+    /*text-decoration: line-through;*/
     font-weight: 600;
     margin-bottom: 12px;
+    position: relative;
+    width: fit-content;
+  }
+
+  h2::after {
+    content: "";
+    position: absolute;
+    width: 90%;
+    height: 3px;
+    background: var(--bg-for-line);
+    top: 55%;
+    left: 0;
+    z-index: -1;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, var(--length) 0%, var(--length) 100%, 0% 100%);
   }
 
   h4 {
@@ -91,7 +106,7 @@
 
 .pin-spacer {
   margin-bottom: 100px !important;
-  height: 100vh!important;
+  height: 100vh !important;
 }
 
 
@@ -107,19 +122,19 @@
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     gap: 30px;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    text-align: center!important;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center !important;
     -webkit-transform: translateY(-70px);
-        -ms-transform: translateY(-70px);
-            transform: translateY(-70px);
+    -ms-transform: translateY(-70px);
+    transform: translateY(-70px);
 
     img {
       width: 200px;
@@ -133,8 +148,8 @@
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
 
     h1 {
       font-size: 45px;
