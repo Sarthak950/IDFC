@@ -157,20 +157,29 @@ function showDetails(fromHero, toHero, increment = 0) {
     }, {
       y: 0,
       opacity: 1,
+      onComplete: () => {
+        const paraTl = gsap.timeline({ paused: true })
+          .to(".tileRight p", {
+            opacity: 1,
+          }, "+=0.1")
+          .add(() => {
+            canScroll = true
+          })
+
+        const video = document.getElementById('coinVideo');
+        video.play()
+
+        video.addEventListener('ended', function() {
+          paraTl.play()
+        });
+      }
     }, "+=0.1")
-    .to(".tileRight p", {
-      opacity: 1,
-    }, "+=0.1")
-    .add(() => {
-      canScroll = true
-    })
 
 }
 
 
-function hideDetails(fromHero, toHero) {
+function hideDetails(fromHero, toHero, enable = false) {
   gsap.set(fromHero, { overflow: "hidden" });
-  console.log("This is called", fromHero, toHero)
 
   // record the current state of details
   const state = Flip.getState(fromHero);
@@ -191,14 +200,9 @@ function hideDetails(fromHero, toHero) {
       })
 
     },
-    onComplete: () => {
-      setTimeout(() => {
-        //enableScroll();
-      }, 1000)
-    }
-    //onInterrupt: () => tl.kill()
   })
-    .set(fromHero, { visibility: "hidden" });
+    .set(fromHero, { visibility: "hidden" })
+    .add(() => { if (enable) canScroll = true })
 
   //activeItem = null;
 }
@@ -486,6 +490,7 @@ const tenthScrollFun = () => gsap.timeline({ paused: true })
       showDetails(tiles[4], pages[4], 2622)
     }
   })
+
 const eleventhScrollFun = () => gsap.timeline({ paused: true })
   .add(() => {
     scrollPosition = 11
@@ -2109,6 +2114,7 @@ const firstScrollFun = () => {
     .add(() => {
       canScroll = true
       scrollPosition = 1
+      //scrollPosition = 10
     })
 }
 
@@ -2153,221 +2159,405 @@ function captureScroll(event) {
         const firstScroll = firstScrollFun()
         firstScroll.play()
       } else if (scrollPosition === 1) {
-        //if (event.deltaY > 0) {
-        const secondScroll = secondScrollFun()
-        secondScroll.play()
-        //} else {
-        //  console.log("this")
-        //  const firstScrollReverse = firstScrollReverseFun()
-        //  firstScrollReverse.play()
-        //}
+        if (event.deltaY > 0) {
+          const secondScroll = secondScrollFun()
+          secondScroll.play()
+        } else {
+          const firstScrollReverse = firstScrollReverseFun()
+          firstScrollReverse.play()
+        }
       } else if (scrollPosition === 2) {
-        //if (event.deltaY > 0) {
-        const thirdScroll = thirdScrollFun()
-        thirdScroll.play()
-        //} else {
-        //  const secondScrollReverse = secondScrollReverseFun()
-        //  secondScrollReverse.play()
-        //}
+        if (event.deltaY > 0) {
+          const thirdScroll = thirdScrollFun()
+          thirdScroll.play()
+        } else {
+          const secondScrollReverse = secondScrollReverseFun()
+          secondScrollReverse.play()
+        }
       } else if (scrollPosition === 3) {
-        //if (event.deltaY > 0) {
-        const fourthScroll = fourthScrollFun()
-        fourthScroll.play()
-        //} else {
-        //  const thirdScrollReverse = thirdScrollReverseFun()
-        //  thirdScrollReverse.play()
-        //}
+        if (event.deltaY > 0) {
+          const fourthScroll = fourthScrollFun()
+          fourthScroll.play()
+        } else {
+          const thirdScrollReverse = thirdScrollReverseFun()
+          thirdScrollReverse.play()
+        }
       } else if (scrollPosition === 4) {
-        //if (event.deltaY > 0) {
-        const fifthScroll = fifthScrollFun()
-        fifthScroll.play()
-        //} else {
-        //  const fourthScrollReverse = fourthScrollReverseFun()
-        //  fourthScrollReverse.play()
-        //}
+        if (event.deltaY > 0) {
+          const fifthScroll = fifthScrollFun()
+          fifthScroll.play()
+        } else {
+          const fourthScrollReverse = fourthScrollReverseFun()
+          fourthScrollReverse.play()
+        }
       } else if (scrollPosition === 5) {
-        //if (event.deltaY > 0) {
-        const sixthScroll = sixthScrollFun()
-        sixthScroll.play()
-        //} else {
-        //  const fifthScrollReverse = fifthScrollReverseFun()
-        //  fifthScrollReverse.play()
-        //}
+        if (event.deltaY > 0) {
+          const sixthScroll = sixthScrollFun()
+          sixthScroll.play()
+        } else {
+          const fifthScrollReverse = fifthScrollReverseFun()
+          fifthScrollReverse.play()
+        }
       } else if (scrollPosition === 6) {
-        //if (event.deltaY > 0) {
-        const seventhScroll = seventhScrollFun()
-        seventhScroll.play()
-        //} else {
-        //  const sixthScrollReverse = sixthScrollReverseFun()
-        //  sixthScrollReverse.play()
-        //}
+        if (event.deltaY > 0) {
+          const seventhScroll = seventhScrollFun()
+          seventhScroll.play()
+        } else {
+          const sixthScrollReverse = sixthScrollReverseFun()
+          sixthScrollReverse.play()
+        }
       } else if (scrollPosition === 7) {
-        //if (event.deltaY > 0) {
-        const eightScroll = eightScrollFun()
-        eightScroll.play()
-        //} else {
-        //  const seventhScrollReverse = seventhScrollReverseFun()
-        //  seventhScrollReverse.play()
-        //}
+        if (event.deltaY > 0) {
+          const eightScroll = eightScrollFun()
+          eightScroll.play()
+        } else {
+          const seventhScrollReverse = seventhScrollReverseFun()
+          seventhScrollReverse.play()
+        }
       } else if (scrollPosition === 8) {
-        //if (event.deltaY > 0) {
-        const ninthScroll = ninthScrollFun()
-        ninthScroll.play()
-        //} else {
-        //  const eightScrollReverse = eighthScrollReverseFun()
-        //  eightScrollReverse.play()
-        //}
+        if (event.deltaY > 0) {
+          const ninthScroll = ninthScrollFun()
+          ninthScroll.play()
+        } else {
+          const eightScrollReverse = eighthScrollReverseFun()
+          eightScrollReverse.play()
+        }
       } else if (scrollPosition === 9) {
-        //if (event.deltaY > 0) {
-        const tenthScroll = tenthScrollFun()
-        tenthScroll.play()
-        //} else {
-        //  const ninthScrollReverse = ninthScrollReverseFun()
-        //  ninthScrollReverse.play()
-        //}
+        if (event.deltaY > 0) {
+          const tenthScroll = tenthScrollFun()
+          tenthScroll.play()
+        } else {
+          const ninthScrollReverse = ninthScrollReverseFun()
+          ninthScrollReverse.play()
+        }
       } else if (scrollPosition === 10) {
-        //if (event.deltaY > 0) {
-        const eleventhScroll = eleventhScrollFun()
-        eleventhScroll.play()
-        //} else {
-        //  const tenthScrollReverse = tenthScrollReverseFun()
-        //  tenthScrollReverse.play()
-        //}
+        if (event.deltaY > 0) {
+          const eleventhScroll = eleventhScrollFun()
+          eleventhScroll.play()
+        } else {
+          const tenthScrollReverse = tenthScrollReverseFun()
+          tenthScrollReverse.play()
+        }
       } else if (scrollPosition === 11) {
-        //if (event.deltaY > 0) {
-        scrollPosition = 12
-        const _12thScroll = _12thScrollFun()
-        _12thScroll.play()
-        //} else {
-        //  const eleventhScrollReverse = eleventhScrollReverseFun()
-        //  eleventhScrollReverse.play()
-        //}
+        if (event.deltaY > 0) {
+          scrollPosition = 12
+          const _12thScroll = _12thScrollFun()
+          _12thScroll.play()
+        } else {
+          scrollPosition = 10
+          const _12thScrollRev = _11thScrollRevFun()
+          _12thScrollRev.play()
+        }
       } else if (scrollPosition === 12) {
-        scrollPosition = 13
-        const _13thScroll = _13thScrollFun()
-        _13thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 13
+          const _13thScroll = _13thScrollFun()
+          _13thScroll.play()
+        } else {
+          scrollPosition = 11
+          const _12thScrollRev = _12thScrollRevFun()
+          _12thScrollRev.play()
+        }
       } else if (scrollPosition === 13) {
-        scrollPosition = 14
-        const _14thScroll = _14thScrollFun()
-        _14thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 14
+          const _14thScroll = _14thScrollFun()
+          _14thScroll.play()
+        } else {
+          scrollPosition = 12
+          const _13thScrollRev = _13thScrollRevFun()
+          _13thScrollRev.play()
+        }
       } else if (scrollPosition === 14) {
-        scrollPosition = 15
-        const _15thScroll = _15thScrollFun()
-        _15thScroll.play()
+        if (event.deltaY > -1) {
+          scrollPosition = 15
+          const _15thScroll = _15thScrollFun()
+          _15thScroll.play()
+        } else {
+          scrollPosition = 13
+          const _14thScrollRev = _14thScrollRevFun()
+          _14thScrollRev.play()
+        }
       } else if (scrollPosition === 15) {
-        scrollPosition = 16
-        const _16thScroll = _16thScrollFun()
-        _16thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 16
+          const _16thScroll = _16thScrollFun()
+          _16thScroll.play()
+        } else {
+          scrollPosition = 14
+          const _15thScrollRev = _15thScrollRevFun()
+          _15thScrollRev.play()
+        }
       } else if (scrollPosition === 16) {
-        scrollPosition = 17
-        const _17thScroll = _17thScrollFun()
-        _17thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 17
+          const _17thScroll = _17thScrollFun()
+          _17thScroll.play()
+        } else {
+          scrollPosition = 15
+          const _16thScrollRev = _16thScrollRevFun()
+          _16thScrollRev.play()
+        }
       } else if (scrollPosition === 17) {
-        scrollPosition = 18
-        const _18thScroll = _18thScrollFun()
-        _18thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 18
+          const _18thScroll = _18thScrollFun()
+          _18thScroll.play()
+        } else {
+          scrollPosition = 16
+          const _17thScrollRev = _17thScrollRevFun()
+          _17thScrollRev.play()
+        }
       } else if (scrollPosition === 18) {
-        scrollPosition = 19
-        const _19thScroll = _19thScrollFun()
-        _19thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 19
+          const _19thScroll = _19thScrollFun()
+          _19thScroll.play()
+        } else {
+          scrollPosition = 17
+          const _18thScrollRev = _18thScrollRevFun()
+          _18thScrollRev.play()
+        }
       } else if (scrollPosition === 19) {
-        scrollPosition = 20
-        const _20thScroll = _20thScrollFun()
-        _20thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 20
+          const _20thScroll = _20thScrollFun()
+          _20thScroll.play()
+        } else {
+          scrollPosition = 18
+          const _19thScrollRev = _19thScrollRevFun()
+          _19thScrollRev.play()
+        }
       } else if (scrollPosition === 20) {
-        scrollPosition = 21
-        const _21thScroll = _21thScrollFun()
-        _21thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 21
+          const _21thScroll = _21thScrollFun()
+          _21thScroll.play()
+        } else {
+          scrollPosition = 19
+          const _20thScrollRev = _20thScrollRevFun()
+          _20thScrollRev.play()
+        }
       } else if (scrollPosition === 21) {
-        scrollPosition = 22
-        const _22thScroll = _22thScrollFun()
-        _22thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 22
+          const _22thScroll = _22thScrollFun()
+          _22thScroll.play()
+        } else {
+          scrollPosition = 20
+          const _21thScrollRev = _21thScrollRevFun()
+          _21thScrollRev.play()
+        }
       } else if (scrollPosition === 22) {
-        scrollPosition = 23
-        const _23thScroll = _23thScrollFun()
-        _23thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 23
+          const _23thScroll = _23thScrollFun()
+          _23thScroll.play()
+        } else {
+          scrollPosition = 21
+          const _22thScrollRev = _22thScrollRevFun()
+          _22thScrollRev.play()
+        }
       } else if (scrollPosition === 23) {
-        scrollPosition = 24
-        const _24thScroll = _24thScrollFun()
-        _24thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 24
+          const _24thScroll = _24thScrollFun()
+          _24thScroll.play()
+        } else {
+          scrollPosition = 22
+          const _23thScrollRev = _23thScrollRevFun()
+          _23thScrollRev.play()
+        }
       } else if (scrollPosition === 24) {
-        scrollPosition = 25
-        const _25thScroll = _25thScrollFun()
-        _25thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 25
+          const _25thScroll = _25thScrollFun()
+          _25thScroll.play()
+        } else {
+          scrollPosition = 23
+          const _24thScrollRev = _24thScrollRevFun()
+          _24thScrollRev.play()
+        }
       } else if (scrollPosition === 25) {
-        scrollPosition = 26
-        const _26thScroll = _26thScrollFun()
-        _26thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 26
+          const _26thScroll = _26thScrollFun()
+          _26thScroll.play()
+        } else {
+          scrollPosition = 24
+          const _25thScrollRev = _25thScrollRevFun()
+          _25thScrollRev.play()
+        }
       } else if (scrollPosition === 26) {
-        scrollPosition = 27
-        const _27thScroll = _27thScrollFun()
-        _27thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 27
+          const _27thScroll = _27thScrollFun()
+          _27thScroll.play()
+        } else {
+          scrollPosition = 25
+          const _26thScrollRev = _26thScrollRevFun()
+          _26thScrollRev.play()
+        }
       } else if (scrollPosition === 27) {
-        scrollPosition = 28
-        const _28thScroll = _28thScrollFun()
-        _28thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 28
+          const _28thScroll = _28thScrollFun()
+          _28thScroll.play()
+        } else {
+          scrollPosition = 26
+          const _27thScrollRev = _27thScrollRevFun()
+          _27thScrollRev.play()
+        }
       } else if (scrollPosition === 28) {
-        scrollPosition = 29
-        const _29thScroll = _29thScrollFun()
-        _29thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 29
+          const _29thScroll = _29thScrollFun()
+          _29thScroll.play()
+        } else {
+          scrollPosition = 27
+          const _28thScrollRev = _28thScrollRevFun()
+          _28thScrollRev.play()
+        }
       } else if (scrollPosition === 29) {
-        scrollPosition = 30
-        const _30thScroll = _30thScrollFun()
-        _30thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 30
+          const _30thScroll = _30thScrollFun()
+          _30thScroll.play()
+        } else {
+          scrollPosition = 28
+          const _29thScrollRev = _29thScrollRevFun()
+          _29thScrollRev.play()
+        }
       } else if (scrollPosition === 30) {
-        scrollPosition = 31
-        const _31thScroll = _31thScrollFun()
-        _31thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 31
+          const _31thScroll = _31thScrollFun()
+          _31thScroll.play()
+        } else {
+          scrollPosition = 29
+          const _30thScrollRev = _30thScrollRevFun()
+          _30thScrollRev.play()
+        }
       } else if (scrollPosition === 31) {
-        scrollPosition = 32
-        const _32thScroll = _32thScrollFun()
-        _32thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 32
+          const _32thScroll = _32thScrollFun()
+          _32thScroll.play()
+        } else {
+          scrollPosition = 30
+          const _31thScrollRev = _31thScrollRevFun()
+          _31thScrollRev.play()
+        }
       } else if (scrollPosition === 32) {
-        scrollPosition = 33
-        const _33thScroll = _33thScrollFun()
-        _33thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 33
+          const _33thScroll = _33thScrollFun()
+          _33thScroll.play()
+        } else {
+          scrollPosition = 31
+          const _32thScrollRev = _32thScrollRevFun()
+          _32thScrollRev.play()
+        }
       } else if (scrollPosition === 33) {
-        scrollPosition = 34
-        const _34thScroll = _34thScrollFun()
-        _34thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 34
+          const _34thScroll = _34thScrollFun()
+          _34thScroll.play()
+        } else {
+          scrollPosition = 32
+          const _33thScrollRev = _33thScrollRevFun()
+          _33thScrollRev.play()
+        }
       } else if (scrollPosition === 34) {
-        scrollPosition = 35
-        const _35thScroll = _35thScrollFun()
-        _35thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 35
+          const _35thScroll = _35thScrollFun()
+          _35thScroll.play()
+        } else {
+          scrollPosition = 33
+          const _34thScrollRev = _34thScrollRevFun()
+          _34thScrollRev.play()
+        }
       } else if (scrollPosition === 35) {
-        scrollPosition = 36
-        const _36thScroll = _36thScrollFun()
-        _36thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 36
+          const _36thScroll = _36thScrollFun()
+          _36thScroll.play()
+        } else {
+          scrollPosition = 34
+          const _35thScrollRev = _35thScrollRevFun()
+          _35thScrollRev.play()
+        }
       } else if (scrollPosition === 36) {
-        scrollPosition = 37
-        const _37thScroll = _37thScrollFun()
-        _37thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 37
+          const _37thScroll = _37thScrollFun()
+          _37thScroll.play()
+        } else {
+          scrollPosition = 35
+          const _36thScrollRev = _36thScrollRevFun()
+          _36thScrollRev.play()
+        }
       } else if (scrollPosition === 37) {
-        scrollPosition = 38
-        const _38thScroll = _38thScrollFun()
-        _38thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 38
+          const _38thScroll = _38thScrollFun()
+          _38thScroll.play()
+        } else {
+          scrollPosition = 36
+          const _37thScrollRev = _37thScrollRevFun()
+          _37thScrollRev.play()
+        }
       } else if (scrollPosition === 38) {
-        scrollPosition = 39
-        const _39thScroll = _39thScrollFun()
-        _39thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 39
+          const _39thScroll = _39thScrollFun()
+          _39thScroll.play()
+        } else {
+          scrollPosition = 37
+          const _38thScrollRev = _38thScrollRevFun()
+          _38thScrollRev.play()
+        }
       } else if (scrollPosition === 39) {
-        scrollPosition = 40
-        const _40thScroll = _40thScrollFun()
-        _40thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 40
+          const _40thScroll = _40thScrollFun()
+          _40thScroll.play()
+        } else {
+          scrollPosition = 38
+          const _39thScrollRev = _39thScrollRevFun()
+          _39thScrollRev.play()
+        }
       } else if (scrollPosition === 40) {
-        scrollPosition = 41
-        const _41thScroll = _41thScrollFun()
-        _41thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 41
+          const _41thScroll = _41thScrollFun()
+          _41thScroll.play()
+        } else {
+          scrollPosition = 39
+          const _40thScrollRev = _40thScrollRevFun()
+          _40thScrollRev.play()
+        }
       } else if (scrollPosition === 41) {
-        console.log("this is happening")
-        scrollPosition = 42
-        const _42thScroll = _42thScrollFun()
-        _42thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 42
+          const _42thScroll = _42thScrollFun()
+          _42thScroll.play()
+        } else {
+          scrollPosition = 40
+          const _41thScrollRev = _41thScrollRevFun()
+          _41thScrollRev.play()
+        }
       } else if (scrollPosition === 42) {
-        console.log("this is happening 2")
-        scrollPosition = 43
-        const _43thScroll = _43thScrollFun()
-        _43thScroll.play()
+        if (event.deltaY > 0) {
+          scrollPosition = 43
+          const _43thScroll = _43thScrollFun()
+          _43thScroll.play()
+        } else {
+          scrollPosition = 41
+          const _42thScrollRev = _42thScrollRevFun()
+          _42thScrollRev.play()
+        }
       }
     }
   } else {
@@ -2390,9 +2580,9 @@ function captureScroll(event) {
 
 const secondScrollReverseFun = () => gsap.timeline({ paused: true })
   .add(() => {
-    scrollPosition = 3
+    scrollPosition = 1
     if (!debug) {
-      hideDetails(ToHero, FromHero)
+      hideDetails(ToHero, FromHero, true)
     }
   })
 
@@ -2441,10 +2631,9 @@ const thirdScrollReverseFun = () => gsap.timeline({ paused: true })
 
 const fourthScrollReverseFun = () => gsap.timeline({ paused: true })
   .add(() => {
-    scrollPosition = 4
-    console.log("4 Reverse")
+    scrollPosition = 3
     if (!debug) {
-      showDetails(tiles[1], pages[1], 402)
+      hideDetails(ToHero, FromHero, true)
     }
   })
 
@@ -2498,7 +2687,7 @@ const sixthScrollReverseFun = () => gsap.timeline({ paused: true })
     console.log("6 Reverse")
     scrollPosition = 5
     if (!debug) {
-      hideDetails(ToHero, FromHero)
+      hideDetails(ToHero, FromHero, true)
     }
   })
 
@@ -2512,7 +2701,6 @@ const seventhScrollReverseFun = () => gsap.timeline({ paused: true })
   .to(CARDS[8], {
     opacity: cardOpacity
   }, '<')
-
   .to(CARDS[8 - 3], {
     y: '110px',
     rotate: '-16deg'
@@ -2540,13 +2728,13 @@ const seventhScrollReverseFun = () => gsap.timeline({ paused: true })
   .add(() => {
     scrollPosition = 6
     if (!debug) {
-      hideDetails(ToHero, FromHero)
+      showDetails(tiles[2], pages[2], 702)
     }
   })
 
 const eighthScrollReverseFun = () => gsap.timeline({ paused: true })
   .add(() => {
-    scrollPosition = 8
+    scrollPosition = 7
     if (!debug) {
       hideDetails(ToHero, FromHero)
     }
@@ -2588,72 +2776,1336 @@ const ninthScrollReverseFun = () => gsap.timeline({ paused: true })
     rotate: '16deg',
   }, '<')
   .add(() => {
-    scrollPosition = 9
+    scrollPosition = 8
     if (!debug) {
       showDetails(tiles[3], pages[3], 2502)
     }
   })
 
-
 const tenthScrollReverseFun = () => gsap.timeline({ paused: true })
   .add(() => {
-    scrollPosition = 10
+    scrollPosition = 9
     if (!debug) {
-      hideDetails(ToHero, FromHero)
+      hideDetails(ToHero, FromHero, true)
     }
   })
 
-const eleventhScrollReverseFun = () => gsap.timeline({ paused: true })
-  // 5 th slide 
-  .to(".wheelCon", {
-    x: (-cardWidth - margin) * 4,
-  }, "+=1")
-  .to(CARDS[10 - 1], {
-    opacity: cardOpacity
-  }, '<')
-  .to(CARDS[10], {
-    opacity: 1
-  }, '<')
-  .to(CARDS[10 - 3], {
-    y: '240px',
-    rotate: '-15deg'
-  }, '<')
-  .to(CARDS[10 - 2], {
-    y: '110px',
-    rotate: '-16deg'
-  }, '<')
-  .to(CARDS[10 - 1], {
-    y: '30px',
-    rotate: '-8deg'
-  }, '<')
-  .to(CARDS[10 + 0], {
-    y: '-20px',
-    rotate: '0deg'
-  }, '<')
-  .to(CARDS[10 + 1], {
-    y: '30px',
-    rotate: '8deg',
-  }, '<')
-  .to(CARDS[10 + 2], {
-    y: '110px',
-    rotate: '16deg'
-  }, '<')
-  .to(CARDS[10 + 3], {
-    y: '240px',
-    rotate: '24deg',
-    onComplete: () => {
-      increaseNumberAnimation('savingQuantity', lastNumber, 2827, 0.1)
-      lastNumber = 2827
-      canScroll = true
-    }
-  }, '<')
 
-  .add(() => {
-    scrollPosition = 11
-    if (!debug) {
-      showDetails(tiles[4], pages[4], 2622)
-    }
-  })
+//  from here
+const _42thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 35,
+      onComplete: () => console.log("42 Reverse")
+    })
+    .to(CARDS[41 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[41], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[41 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[41 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[41 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[41 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[41 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[41 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _41thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 34,
+      onComplete: () => console.log("41 Reverse")
+    })
+    .to(CARDS[40 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[40], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[40 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[40 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[40 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[40 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[40 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[40 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _40thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 33,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[39 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[39], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[39 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[39 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[39 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[39 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[39 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[39 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _39thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 32,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[38 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[38], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[38 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[38 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[38 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[38 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[38 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[38 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _38thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 31,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[37 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[37], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[37 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[37 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[37 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[37 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[37 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[37 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _37thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 30,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[36 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[36], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[36 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[36 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[36 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[36 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[36 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[36 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _36thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 29,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[35 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[35], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[35 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[35 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[35 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[35 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[35 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[35 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _35thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 28,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[34 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[34], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[34 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[34 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[34 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[34 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[34 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[34 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _34thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 27,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[33 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[33], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[33 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[33 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[33 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[33 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[33 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[33 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _33thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 26,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[32 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[32], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[32 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[32 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[32 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[32 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[32 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[32 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _32thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 25,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[31 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[31], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[31 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[31 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[31 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[31 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[31 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[31 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _31thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 24,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[30 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[30], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[30 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[30 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[30 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[30 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[30 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[30 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _30thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 23,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[29 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[29], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[29 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[29 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[29 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[29 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[29 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[29 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _29thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 22,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[28 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[28], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[28 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[28 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[28 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[28 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[28 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[28 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _28thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 21,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[27 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[27], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[27 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[27 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[27 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[27 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[27 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[27 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _27thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 20,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[26 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[26], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[26 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[26 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[26 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[26 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[26 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[26 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _26thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 19,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[25 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[25], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[25 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[25 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[25 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[25 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[25 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[25 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _25thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 18,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[24 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[24], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[24 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[24 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[24 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[24 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[24 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[24 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _24thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 17,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[23 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[23], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[23 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[23 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[23 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[23 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[23 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[23 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _23thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 16,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[22 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[22], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[22 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[22 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[22 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[22 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[22 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[22 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _22thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 15,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[21 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[21], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[21 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[21 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[21 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[21 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[21 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[21 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _21thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 14,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[20 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[20], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[20 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[20 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[20 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[20 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[20 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[20 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _20thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 13,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[19 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[19], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[19 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[19 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[19 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[19 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[19 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[19 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _19thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 12,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[18 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[18], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[18 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[18 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[18 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[18 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[18 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[18 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _18thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 11,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[17 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[17], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[17 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[17 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[17 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[17 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[17 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[17 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _17thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 10,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[16 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[16], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[16 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[16 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[16 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[16 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[16 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[16 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _16thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 9,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[15 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[15], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[15 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[15 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[15 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[15 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[15 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[15 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _15thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 8,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[14 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[14], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[14 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[14 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[14 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[14 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[14 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[14 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _14thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 7,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[13 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[13], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[13 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[13 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[13 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[13 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[13 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[13 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _13thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 6,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[12 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[12], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[12 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[12 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[12 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[12 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[12 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[12 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _12thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 5,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[11 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[11], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[11 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[11 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[11 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[11 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[11 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[11 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        canScroll = true
+      }
+    }, '<')
+
+
+const _11thScrollRevFun = () =>
+  gsap.timeline({ paused: true })
+    .to(".wheelCon", {
+      x: (-cardWidth - margin) * 4,
+      onComplete: () => console.log("5 Reverse")
+    })
+    .to(CARDS[10 - 1], {
+      opacity: 1
+    }, '<')
+    .to(CARDS[10], {
+      opacity: cardOpacity
+    }, '<')
+    .to(CARDS[10 - 3], {
+      y: '110px',
+      rotate: '-16deg'
+    }, '<')
+    .to(CARDS[10 - 2], {
+      y: '30px',
+      rotate: '-8deg'
+    }, '<')
+    .to(CARDS[10 - 1], {
+      y: '-20px',
+      rotate: '0deg'
+    }, '<')
+    .to(CARDS[10 + 0], {
+      y: '30px',
+      rotate: '8deg'
+    }, '<')
+    .to(CARDS[10 + 1], {
+      y: '110px',
+      rotate: '16deg',
+    }, '<')
+    .to(CARDS[10 + 2], {
+      y: '240px',
+      rotate: '16deg',
+      onComplete: () => {
+        scrollPosition = 10
+        canScroll = true
+        if (!debug) {
+          showDetails(tiles[4], pages[4], 2502)
+        }
+      }
+    }, '<')
 
 
 

@@ -243,6 +243,14 @@
   width: 64px;
   border-radius: 100%;
   background: var(--pink);
+
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 100%;
+    overflow: hidden;
+  }
 }
 
 .savingText {
